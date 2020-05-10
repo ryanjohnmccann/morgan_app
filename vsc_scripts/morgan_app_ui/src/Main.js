@@ -9,9 +9,6 @@ import Box from '@material-ui/core/Box';
 import Home from './components/home.js';
 import Compare from './components/compare.js'
 
-
-// test comment.
-// testing here
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
