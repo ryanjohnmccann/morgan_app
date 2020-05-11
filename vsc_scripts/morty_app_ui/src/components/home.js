@@ -21,10 +21,38 @@ const useStyles = makeStyles(theme => ({
       flexWrap: 'wrap',
     },
     margin: {
-      margin: theme.spacing(1.5)
+      margin: theme.spacing(1.5),
     },
     textField: {
       width: 248,
+      // iPhone 5, SE
+      [theme.breakpoints.between("0", "360")]: {
+        width: 100,
+      },
+      // Galaxy S5
+      [theme.breakpoints.between("360", "370")]: {
+        width: 120,
+      },
+      // iPhone 6, 7, 8
+      [theme.breakpoints.between("370", "380")]: {
+        width: 130,
+      },
+      // Pixel 2, Pixel 2 XL
+      [theme.breakpoints.between("400", "411")]: {
+        width: 145,
+      },
+      // iPhone 6, 7, 8 Plus
+      [theme.breakpoints.between("411", "420")]: {
+        width: 150,
+      },
+      // iPad
+      [theme.breakpoints.between("750", "770")]: {
+        width: 115,
+      },
+      // iPad Pro
+      [theme.breakpoints.between("1000", "1030")]: {
+        width: 165,
+      },
     },
     table: {
       width: '100%',
@@ -32,6 +60,7 @@ const useStyles = makeStyles(theme => ({
     container: {
       maxHeight: 440,
     },
+
   }));
   
   // Creates default data for the DataTable
@@ -141,7 +170,7 @@ function Home() {
             {/* Fade in effect */}
             <Fade>
             {/* Creates our TextFields */}
-            <div className={classes.root}>
+            <div id="home_tfs" className={classes.root}>
                 {values.map(value => (
                 <TextField
                     key={value.key}

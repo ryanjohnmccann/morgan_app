@@ -35,6 +35,30 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     width: 230,
+    // iPhone 5, SE
+    [theme.breakpoints.between("0", "360")]: {
+      width: 90,
+    },
+    // Galaxy S5
+    [theme.breakpoints.between("360", "370")]: {
+      width: 110,
+    },
+    // iPhone 6, 7, 8
+    [theme.breakpoints.between("370", "380")]: {
+      width: 115,
+    },
+    // Pixel 2, Pixel 2 XL, iPhone 6, 7, 8 Plus
+    [theme.breakpoints.between("400", "420")]: {
+      width: 135,
+    },
+    // iPad
+    [theme.breakpoints.between("750", "770")]: {
+      width: 110,
+    },
+    // iPad Pro
+    [theme.breakpoints.between("1000", "1030")]: {
+      width: 160,
+    },
   },
   margin: {
     margin: theme.spacing(1.3)
@@ -47,6 +71,10 @@ const useStyles = makeStyles((theme) => ({
     width: '33%',
     float: 'left',
     marginBottom: '2vmin',
+    [theme.breakpoints.down("xl")]: {
+      float: 'none',
+      width: '100%',
+    },
   },
 }));
 
@@ -92,40 +120,40 @@ export default function Compare() {
   const [expanded, set_expanded] = React.useState(false);
   // For TextFields
   const [values_a, set_values_a] = React.useState([
-    create_text_field(0, 'Purchase Price', 'purchase_price', '$', '' ,''),
-    create_text_field(1, 'Down Payment', 'down_payment', '$', '' ,''),
-    create_text_field(2, 'Interest Rate', 'interest_rate', '%', '' ,''),
-    create_text_field(3, 'Loan Duration', 'loan_duration', '', 'Years' ,''),
-    create_text_field(4, 'Yearly Payments', 'yearly_payments', '', '' ,''),
-    create_text_field(5, 'City', 'city', '', '' ,''),
-    create_text_field(6, 'State', 'state', '', '' ,''),
-    create_text_field(7, 'Type Of Property', 'type_of_property', '', '' ,''),
-    create_text_field(8, 'Income', 'income', '$', '' ,''),
-    create_text_field(9, 'Tax Filing Status', 'tax_filing_status', '', '' ,''),
+    create_text_field(0, 'Purchase Price', 'purchase_price_a', '$', '' ,''),
+    create_text_field(1, 'Down Payment', 'down_payment_a', '$', '' ,''),
+    create_text_field(2, 'Interest Rate', 'interest_rate_a', '%', '' ,''),
+    create_text_field(3, 'Loan Duration', 'loan_duration_a', '', 'Years' ,''),
+    create_text_field(4, 'Yearly Payments', 'yearly_payments_a', '', '' ,''),
+    create_text_field(5, 'City', 'city_a', '', '' ,''),
+    create_text_field(6, 'State', 'state_a', '', '' ,''),
+    create_text_field(7, 'Type Of Property', 'type_of_property_a', '', '' ,''),
+    create_text_field(8, 'Income', 'income_a', '$', '' ,''),
+    create_text_field(9, 'Tax Filing Status', 'tax_filing_status_a', '', '' ,''),
   ]);
   const [values_b, set_values_b] = React.useState([
-    create_text_field(0, 'Purchase Price', 'purchase_price', '$', '' ,''),
-    create_text_field(1, 'Down Payment', 'down_payment', '$', '' ,''),
-    create_text_field(2, 'Interest Rate', 'interest_rate', '%', '' ,''),
-    create_text_field(3, 'Loan Duration', 'loan_duration', '', 'Years' ,''),
-    create_text_field(4, 'Yearly Payments', 'yearly_payments', '', '' ,''),
-    create_text_field(5, 'City', 'city', '', '' ,''),
-    create_text_field(6, 'State', 'state', '', '' ,''),
-    create_text_field(7, 'Type Of Property', 'type_of_property', '', '' ,''),
-    create_text_field(8, 'Income', 'income', '$', '' ,''),
-    create_text_field(9, 'Tax Filing Status', 'tax_filing_status', '', '' ,''),
+    create_text_field(0, 'Purchase Price', 'purchase_price_b', '$', '' ,''),
+    create_text_field(1, 'Down Payment', 'down_payment_b', '$', '' ,''),
+    create_text_field(2, 'Interest Rate', 'interest_rate_b', '%', '' ,''),
+    create_text_field(3, 'Loan Duration', 'loan_duration_b', '', 'Years' ,''),
+    create_text_field(4, 'Yearly Payments', 'yearly_payments_b', '', '' ,''),
+    create_text_field(5, 'City', 'city_b', '', '' ,''),
+    create_text_field(6, 'State', 'state_b', '', '' ,''),
+    create_text_field(7, 'Type Of Property', 'type_of_property_b', '', '' ,''),
+    create_text_field(8, 'Income', 'income_b', '$', '' ,''),
+    create_text_field(9, 'Tax Filing Status', 'tax_filing_status_b', '', '' ,''),
   ]);
   const [values_c, set_values_c] = React.useState([
-    create_text_field(0, 'Purchase Price', 'purchase_price', '$', '' ,''),
-    create_text_field(1, 'Down Payment', 'down_payment', '$', '' ,''),
-    create_text_field(2, 'Interest Rate', 'interest_rate', '%', '' ,''),
-    create_text_field(3, 'Loan Duration', 'loan_duration', '', 'Years' ,''),
-    create_text_field(4, 'Yearly Payments', 'yearly_payments', '', '' ,''),
-    create_text_field(5, 'City', 'city', '', '' ,''),
-    create_text_field(6, 'State', 'state', '', '' ,''),
-    create_text_field(7, 'Type Of Property', 'type_of_property', '', '' ,''),
-    create_text_field(8, 'Income', 'income', '$', '' ,''),
-    create_text_field(9, 'Tax Filing Status', 'tax_filing_status', '', '' ,''),
+    create_text_field(0, 'Purchase Price', 'purchase_price_c', '$', '' ,''),
+    create_text_field(1, 'Down Payment', 'down_payment_c', '$', '' ,''),
+    create_text_field(2, 'Interest Rate', 'interest_rate_c', '%', '' ,''),
+    create_text_field(3, 'Loan Duration', 'loan_duration_c', '', 'Years' ,''),
+    create_text_field(4, 'Yearly Payments', 'yearly_payments_c', '', '' ,''),
+    create_text_field(5, 'City', 'city_c', '', '' ,''),
+    create_text_field(6, 'State', 'state_c', '', '' ,''),
+    create_text_field(7, 'Type Of Property', 'type_of_property_c', '', '' ,''),
+    create_text_field(8, 'Income', 'income_c', '$', '' ,''),
+    create_text_field(9, 'Tax Filing Status', 'tax_filing_status_c', '', '' ,''),
   ]);
   // Handle change for TextFields A, B, and C
   const handle_change_a = prop => event => {
