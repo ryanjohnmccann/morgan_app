@@ -78,7 +78,7 @@ function Main() {
         >
           <LinkTab label="Home" href="/home" {...a11yProps(0)} />
           <LinkTab label="Compare" href="/compare" {...a11yProps(1)} />
-          <LinkTab label="Morgan" href="/morgan" {...a11yProps(2)} />
+          <LinkTab label="Morty" href="/morty" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
     {/* Home tab */}
