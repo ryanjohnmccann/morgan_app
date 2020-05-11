@@ -7,7 +7,18 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1bfjM02f1lKFUieytxtVxj21mpq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -31,9 +42,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2037" y="372" key="com.intellij.ide.util.TipDialog" timestamp="1589029996990">
-      <screen x="1440" y="0" width="1920" height="1080" />
+    <state x="448" y="310" key="com.intellij.ide.util.TipDialog" timestamp="1589199157025">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="2037" y="372" key="com.intellij.ide.util.TipDialog/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589029996990" />
+    <state x="448" y="310" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1589199157025" />
   </component>
 </project>
