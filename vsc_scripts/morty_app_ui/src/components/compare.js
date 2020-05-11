@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
       width: 160,
     },
     // Larger monitors (Than my MacBook Pro 13.3")
-    [theme.breakpoints.between("1100", "2000")]: {
+    [theme.breakpoints.between("1500", "2000")]: {
       width: 335,
     },
   },
