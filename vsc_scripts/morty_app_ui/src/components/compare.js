@@ -59,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.between("1000", "1030")]: {
       width: 160,
     },
+    // Larger monitors (Than my MacBook Pro 13.3")
+    [theme.breakpoints.between("1100", "2000")]: {
+      width: 335,
+    },
   },
   margin: {
     margin: theme.spacing(1.3)
@@ -71,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     width: '33%',
     float: 'left',
     marginBottom: '2vmin',
-    [theme.breakpoints.down("xl")]: {
+    [theme.breakpoints.down("l")]: {
       float: 'none',
       width: '100%',
     },
