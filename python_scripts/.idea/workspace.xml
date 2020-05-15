@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c697dca0-47c1-4e2f-bda8-37a95aed07a6" name="Default Changelist" comment="" />
+    <list default="true" id="c697dca0-47c1-4e2f-bda8-37a95aed07a6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/misc/make_states_list.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/structure_data/counties_to_prop_tax_rates.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/structure_data/counties_to_prop_tax_v2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/structure_data/link_towns_cities_to_counties_v2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/structure_data/link_towns_cities_to_county.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/structure_data/make_property_tax_rates_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/structure_data/make_property_tax_rates_2.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,7 +34,124 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager" selected="Python.link_towns_cities_to_counties_v2">
+    <configuration name="counties_to_prop_tax_rates" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python_scripts" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/structure_data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/structure_data/counties_to_prop_tax_rates.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="counties_to_prop_tax_v2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python_scripts" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/structure_data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/structure_data/counties_to_prop_tax_v2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="link_towns_cities_to_counties_v2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python_scripts" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/structure_data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/structure_data/link_towns_cities_to_counties_v2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="link_towns_cities_to_county" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python_scripts" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/structure_data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/structure_data/link_towns_cities_to_county.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="make_states_list" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python_scripts" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/misc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/misc/make_states_list.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.link_towns_cities_to_counties_v2" />
+        <item itemvalue="Python.counties_to_prop_tax_v2" />
+        <item itemvalue="Python.counties_to_prop_tax_rates" />
+        <item itemvalue="Python.make_states_list" />
+        <item itemvalue="Python.link_towns_cities_to_county" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -42,10 +167,63 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="448" y="310" key="com.intellij.ide.util.TipDialog" timestamp="1589199157025">
+    <state x="1680" y="90" key="FileDocumentManager.FileCacheConflict" timestamp="1589289711724">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1680" y="90" key="FileDocumentManager.FileCacheConflict/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589289711724" />
+    <state width="945" height="63" key="GridCell.Tab.0.bottom" timestamp="1589563776679">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="945" height="63" key="GridCell.Tab.0.bottom/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589563776679" />
+    <state width="1419" height="270" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1589469569875" />
+    <state width="1899" height="443" key="GridCell.Tab.0.bottom/0.23.1440.877/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589395154941" />
+    <state width="945" height="63" key="GridCell.Tab.0.center" timestamp="1589563776677">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="945" height="63" key="GridCell.Tab.0.center/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589563776677" />
+    <state width="1419" height="270" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1589469569873" />
+    <state width="1899" height="443" key="GridCell.Tab.0.center/0.23.1440.877/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589395154939" />
+    <state width="945" height="63" key="GridCell.Tab.0.left" timestamp="1589563776676">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="945" height="63" key="GridCell.Tab.0.left/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589563776676" />
+    <state width="1419" height="270" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1589469569872" />
+    <state width="1899" height="443" key="GridCell.Tab.0.left/0.23.1440.877/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589395154939" />
+    <state width="945" height="63" key="GridCell.Tab.0.right" timestamp="1589563776678">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="945" height="63" key="GridCell.Tab.0.right/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589563776678" />
+    <state width="1419" height="270" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1589469569874" />
+    <state width="1899" height="443" key="GridCell.Tab.0.right/0.23.1440.877/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589395154940" />
+    <state width="1899" height="375" key="GridCell.Tab.1.bottom" timestamp="1589415096141">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="375" key="GridCell.Tab.1.bottom/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589415096141" />
+    <state width="1899" height="375" key="GridCell.Tab.1.center" timestamp="1589415096140">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="375" key="GridCell.Tab.1.center/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589415096140" />
+    <state width="1899" height="375" key="GridCell.Tab.1.left" timestamp="1589415096139">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="375" key="GridCell.Tab.1.left/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589415096139" />
+    <state width="1899" height="375" key="GridCell.Tab.1.right" timestamp="1589415096141">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="375" key="GridCell.Tab.1.right/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589415096141" />
+    <state x="1791" y="151" key="SettingsEditor" timestamp="1589241849349">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1791" y="151" key="SettingsEditor/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589241849349" />
+    <state x="448" y="310" key="com.intellij.ide.util.TipDialog" timestamp="1589468940395">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="2037" y="372" key="com.intellij.ide.util.TipDialog/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589029996990" />
-    <state x="448" y="310" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1589199157025" />
+    <state x="448" y="310" key="com.intellij.ide.util.TipDialog/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1589391478116" />
+    <state x="2037" y="372" key="com.intellij.ide.util.TipDialog/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589404816931" />
+    <state x="448" y="310" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1589468940395" />
+    <state x="1853" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1589241818949">
+      <screen x="1440" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1853" y="241" width="670" height="676" key="search.everywhere.popup/0.0.1440.900/1440.0.1920.1080@1440.0.1920.1080" timestamp="1589241818949" />
   </component>
 </project>

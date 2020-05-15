@@ -2,22 +2,11 @@ import React from 'react';
 import Fade from 'react-reveal/Fade'
 import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
+import { ExpansionPanelDetails, ExpansionPanelSummary, InputAdornment, 
+          Typography, TextField, Button, Table, TableBody, TableCell, 
+          TableContainer, TableHead, TableRow, Paper, TablePagination } from '@material-ui/core'
 import clsx from 'clsx';
-import Button from '@material-ui/core/Button';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import TablePagination from '@material-ui/core/TablePagination';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {handle_mult_input} from './handle_mult_input.js'
 
 const useStyles = makeStyles((theme) => ({
@@ -264,17 +253,17 @@ export default function Compare() {
   const handle_change_page_b = (event, newPage) => {
     set_page_b(newPage);
 };
-const handle_change_rows_per_page_b = (event) => {
-    set_rows_per_page_b(parseInt(event.target.value, 10));
-    set_page_b(0);
-};
-const handle_change_page_c = (event, newPage) => {
-  set_page_c(newPage);
-};
-const handle_change_rows_per_page_c = (event) => {
-  set_rows_per_page_c(parseInt(event.target.value, 10));
-  set_page_c(0);
-};
+  const handle_change_rows_per_page_b = (event) => {
+      set_rows_per_page_b(parseInt(event.target.value, 10));
+      set_page_b(0);
+  };
+  const handle_change_page_c = (event, newPage) => {
+    set_page_c(newPage);
+  };
+  const handle_change_rows_per_page_c = (event) => {
+    set_rows_per_page_c(parseInt(event.target.value, 10));
+    set_page_c(0);
+  };
 
   // For the submit button
   function handle_click(raw_data_arr) {
@@ -388,7 +377,7 @@ const handle_change_rows_per_page_c = (event) => {
           <div style={{textAlign: 'center'}}>
           <Button 
                     size="large" variant="contained" color="primary" 
-                    style={{marginBottom: '5.2vmin'}}
+                    style={{marginBottom: '5.2vmin', marginTop: '1.5vmin'}}
                     onClick={() => handle_click([values_a, values_b, values_c])}
             >
               Submit All
