@@ -1,17 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import TablePagination from '@material-ui/core/TablePagination';
+import { InputAdornment, TextField, Table, TableBody,
+         TableCell, TableContainer, TableHead, TableRow, 
+         Paper, Button, TablePagination } from '@material-ui/core'
 import Fade from 'react-reveal/Fade'
 import {handle_input} from './handle_input.js'
 

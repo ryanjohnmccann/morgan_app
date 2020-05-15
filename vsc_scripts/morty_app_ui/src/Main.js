@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import Home from './components/home.js';
 import Compare from './components/compare.js'
+import Contact from './components/contact.js'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -78,7 +75,7 @@ function Main() {
         >
           <LinkTab label="Home" href="/home" {...a11yProps(0)} />
           <LinkTab label="Compare" href="/compare" {...a11yProps(1)} />
-          <LinkTab label="Morty" href="/morty" {...a11yProps(2)} />
+          <LinkTab label="Contact" href="/contact" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
     {/* Home tab */}
@@ -91,6 +88,7 @@ function Main() {
     </TabPanel>
     {/* Unused tab (for now) */}
     <TabPanel value={value} index={2}>
+      <Contact/>
     </TabPanel>
   </div>
   )

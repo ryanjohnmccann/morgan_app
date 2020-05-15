@@ -2,68 +2,61 @@
 # Ryan McCann
 
 # Last updated:
-# 05/11/20
+# 05/13/20
 
 # Purpose:
+# Creates json file with property tax rates for
+#   - New York
 
 # Issues/Needed Improvements:
 # N/A
 
 # Other Notes:
-# Some states' rates are found for their counties. Another script will be made linking
-# cities and towns to those counties
-
-# TODO: Have to link all other cities and towns to their proper county
+# N/A
 
 import requests
 import json
 from bs4 import BeautifulSoup as bs
+import pandas as pd
+import numpy as np
 
 # *** These rates are assessing for every $1,000 of the home value ***
+fp = '/Users/ryanmccann/Desktop/misc/programming/morty_app/data/property_tax_rates/'
 
 # *** Tax rates from New York are assumed to be from 2019 ***
 
-des_page = requests.get('https://smartasset.com/taxes/new-york-property-tax-calculator#z2SjW9yFlE')
-des_content = bs(des_page.content, "html.parser")
-# In this case, all desired data was located in html tds.
-all_tds = des_content.find_all('td')
-# Resulting list for New York.
-ny_res_list = list()
+# New York counties and their property tax rates
+ny_rates = json.load(open(fp + 'new_york/counties.json'))
+# New York cities and towns linked to their county
+ny_cit_count = json.load(open(fp + 'new_york/cities_towns_to_county.json'))
 
-# To filter all other undesired tds
-check_var = False
-count = 0
-# Current county and current rate
-curr_county = curr_rate = ''
-temp_dict = dict()
 res_list = list()
-for obj in all_tds:
-    for obj_2 in obj:
-        pass
-        # if obj_2 == 'Albany':
-        #     curr_county = 'albany'
-        #     check_var = True
-        #     count += 1
-        #     continue
-        # if check_var:
-        #     if count == 0:
-        #         pass
-        #     elif count == 3:
-        #         # Convert to decimal and then to a dollar value
-        #         curr_rate = (obj_2 / 100) * 1000
-        #         temp_dict = {'county': curr_county, 'rate': curr_rate}
-        #         res_list.append(temp_dict)
-        #         temp_dict = dict()
-        #     count += 1
+for obj in ny_cit_count:
+    curr_city = obj['city/town']
+    curr_county = obj['county']
+    if 'st.' in curr_city:
+        temp_var = curr_city.split('_')
+        curr_city = 'saint_' + temp_var[1]
+    # Cities that are in multiple counties
+    # An average is taken of the counties it is in
+    if type(curr_county) == list:
+        # Average of the multiple counties
+        # There exists a town and a city with the name 'geneva'
+        if curr_city == 'geneva':
+            curr_city = 'geneva_city'
+        mult_rates = list()
+        for county in curr_county:
+            for obj_3 in ny_rates:
+                if obj_3['county'] == county:
+                    mult_rates.append(obj_3['rate'])
+        des_rate = np.mean(mult_rates)
+    else:
+        for obj_2 in ny_rates:
+            if curr_county == obj_2['county']:
+                des_rate = obj_2['rate']
+    temp_dict = {'city/town': curr_city, 'rate': des_rate}
+    res_list.append(temp_dict)
+    temp_dict = dict()
 
-# If it equals Albany then we should begin appending to our final list
-# Then comes two number we don't care about
-# Then comes the percentage
-# After that we can continue as normal with the same pattern
-
-
-
-
-
-
-
+# with open(fp + 'new_york.json', 'w') as f_path:
+#     json.dump(res_list, f_path)
