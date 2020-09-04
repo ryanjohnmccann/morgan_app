@@ -66,13 +66,14 @@ class run_simulation {
             }
         }
         var des_data = require('../data/property_tax_rates/' + this.state + '.json')
-        for (i = 0; i < des_data.length; i++) {
-            if (city === des_data[i]['city/town']) {
-                var property_tax_rate = des_data[i]['rate']
+        const cities_towns_arr = Object.values(des_data)[0]
+        for (i = 0; i < cities_towns_arr.length; i++) {
+            if (city === cities_towns_arr[i]['location']) {
+                var property_tax_rate = cities_towns_arr[i]['rate']
                 break
             }
         }
-        var monthly_property_tax = ((this.purchase_price / 1000) * property_tax_rate) / 12,
+        var monthly_property_tax = ((this.purchase_price) * property_tax_rate) / 12,
         yearly_property_tax = monthly_property_tax * 12,
         total_property_tax = monthly_property_tax * 12 * this.loan_duration
         return [monthly_property_tax, yearly_property_tax, total_property_tax]

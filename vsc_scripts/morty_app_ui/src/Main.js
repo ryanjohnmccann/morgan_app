@@ -86,7 +86,7 @@ function Main() {
     <TabPanel value={value} index={1}>
       <Compare/>
     </TabPanel>
-    {/* Unused tab (for now) */}
+    {/* Contact tab */}
     <TabPanel value={value} index={2}>
       <Contact/>
     </TabPanel>
