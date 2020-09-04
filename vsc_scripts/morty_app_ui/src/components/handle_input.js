@@ -1,10 +1,14 @@
 import {initiate_sim} from './calc_finances.js'
+import {useful_functions} from './useful_functions.js'
+
+var useful_function_methods = new useful_functions()
 
 function error_check_input (input_list) {
     var i, j, k
     // Loads in all states and cities that exist in thus far
     var states_and_cities = require('../data/all_states_and_cities.json');
     for (i = 0; i < input_list.length; i++) {
+        // Error check down payment
         if (Object.values(input_list[1])[0] > Object.values(input_list[0])[0]) {
             window.alert('Down Payment Cannot Be More Than The Purchase Price')
             return null
@@ -33,25 +37,27 @@ function error_check_input (input_list) {
         // State and city
         if (i === 6) {
             var check_state = false, user_state, check_city = false
-            user_state = input_list[6]['state'].toLowerCase()
-            user_state = user_state.replace(' ', '_')
-            if (user_state === 'ma') {
-                user_state = 'massachusetts'
-            }
-            else if (user_state === 'nh') {
-                user_state = 'new_hampshire'
-            }
-            else if (user_state === 'vt') {
-                user_state = 'vermont'
-            }
-            else if (user_state === 'ri') {
-                user_state = 'rhode_island'
-            }
-            else if (user_state === 'me') {
-                user_state = 'maine'
-            }
-            else if (user_state === 'ct') {
-                user_state = 'connecticut'
+            // Could be an abbreviation i.e. 'massachusetts' could be input as 'ma'
+            user_state = useful_function_methods.clean_string(input_list[6]['state'])
+            var found_state = false
+            while(!found_state) {
+                const abbr_to_name_arr = require('../data/state_abbreviations/abbr_name_list.json')
+                for (j = 0; j < abbr_to_name_arr.length; j++) {
+                    var curr_abbr = Object.keys(abbr_to_name_arr[j])[0],
+                        curr_state = Object.values(abbr_to_name_arr[j])[0]
+                    if (curr_abbr === user_state) {
+                        user_state = curr_state
+                    }
+                    if (user_state === curr_state) {
+                        found_state = true
+                        check_state = true
+                        break
+                    }
+                }
+                if (!found_state) {
+                    window.alert('Invalid State')
+                    return null
+                }
             }
             for (j = 0; j < states_and_cities.length; j++) {
                 var curr_key = Object.keys(states_and_cities[j])
@@ -71,8 +77,7 @@ function error_check_input (input_list) {
                         }
                     }
                     else {
-                        user_city = user_city.toLowerCase()
-                        user_city = user_city.replace(' ', '_')
+                        user_city = useful_function_methods.clean_string(user_city)
                         for (k = 0; k < states_and_cities[j][user_state].length; k++) {
                         if (user_city === states_and_cities[j][user_state][k]) {
                             check_city = true
@@ -93,10 +98,9 @@ function error_check_input (input_list) {
         }
         // Property type
         else if (i === 7) {
-            var prop_type = input_list[7]['property_type'].toLowerCase(),
+            var prop_type = useful_function_methods.clean_string(input_list[7]['property_type']),
             valid_props_arr = ['house', 'apartment', 'home', 'condo', 'condominium'],
             check_prop = false
-            prop_type = prop_type.replace(' ', '_')
             for (j = 0; j < valid_props_arr.length; j++) {
                 if (prop_type === valid_props_arr[j]) {
                     check_prop = true
