@@ -116,16 +116,17 @@ class run_simulation {
         //  Add up exactly
         total_costs = pmi_arr[2] + interest_arr[2] + property_tax_arr[2] +
                         maintenance_arr[2] + principle_payment_arr[2]
-        if (this.loan_duration < 30) {
-            var smart_savings = this.calculate_smart_savings()
-        }
-        else {
-            smart_savings = 0
-        }
-        // Recommended maximum monthly payment
-        var rec_payment = this.income * (0.25 / 12),
+        // if (this.loan_duration < 30) {
+        //     // var smart_savings = this.calculate_smart_savings()
+        //     console.log('Nothing, for now.')
+        // }
+        // else {
+        //     var smart_savings = 0
+        // }
+        // // Recommended maximum monthly payment
+        // var rec_payment = this.income * (0.25 / 12),
         // Total recurring and non-recurring expenses
-        tot_rec_exp,
+        var tot_rec_exp,
         tot_non_rec_exp,
         rec_exp_arr
 
