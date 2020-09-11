@@ -3,16 +3,16 @@
     Ryan McCann
 
 ~ Last updated:
-    08/25/2020
+    09/11/2020
 
 ~ Purpose:
-    Runs the simulation for calculating fees for a mortgage
+    Runs the simulation for calculating fees for a mortgage. This is the original
 
 ~ Issues/Needed Improvements:
-    N/A
+    This does not work at the moment, need to update paths and things like that.
 
 ~ Other Notes:
-    N/A
+    This code is used to check code written in javascript on the morty app ui
 """
 import json
 
