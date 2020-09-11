@@ -3,10 +3,10 @@
     Ryan McCann
 
 ~ Last updated:
-    08/28/2020
+    09/11/2020
 
 ~ Purpose:
-    N/A
+    Contains functions used in multiple scripts in this project.
 
 ~ Issues/Needed Improvements:
     N/A
@@ -14,12 +14,13 @@
 ~ Other Notes:
     N/A
 """
-import re
 
 
 def clean_string_property_taxes(string):
     """
-    Convert a string to snake case
+    This function was used when obtaining property tax rates. Cleans a string by doing the following:
+        - Converts it to snake case
+        - Removes invalid characters
     :param string: A string
     :return: A new string in snake case with punctuation, and special characters removed
     """

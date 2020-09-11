@@ -3,10 +3,10 @@
     Ryan McCann
 
 ~ Last updated:
-    09/04/2020
+    09/11/2020
 
 ~ Purpose:
-    N/A
+    Grab property tax rates for all fifty states
 
 ~ Issues/Needed Improvements:
     - If a city or town lies in multiple counties, it just takes the first county it belongs in
@@ -14,7 +14,7 @@
     - Not all cities and towns have been found
 
 ~ Other Notes:
-    This code needs to be cleaned and commented, will do so when I get the chance.
+    N/A
 """
 import json
 import requests
@@ -28,7 +28,6 @@ def get_all_states(save=True):
     """
     Brings in a downloaded file downloaded locally from GitHub that contains all 50 US states. Slightly formats the
     data and saves it to another JSON file
-    :return: None
     """
     all_states_res_list = list()
     # Downloaded from: https://gist.github.com/mshafrir/2646763
@@ -49,21 +48,23 @@ def get_all_states(save=True):
 def get_property_tax_rates(state_to_cities_dict, save=True):
     """
     Finds property tax rates for every city and town in a given state
-    :param state_to_cities_dict: The key being the state and the value a list of towns and cities along with the
-    county they reside in
-    :param save:
-    :return: None
+    :param state_to_cities_dict: The key being the state and the value a list of dictionaries with
+    towns and cities along with the county they reside in
+    :param save: If you'd like to save the file or not
     """
     county_to_rate_dict = dict()
     for state, towns_cities_list in state_to_cities_dict.items():
         print(f'\n\t*** RETRIEVING PROPERTY TAX RATES FOR {state} ***')
         url = 'https://smartasset.com/taxes/{}-property-tax-calculator'.format(state.lower().replace(' ', '-'))
         res = requests.get(url)
+        # Edge cases found where the county did not exactly align with the format on smartasset. Some of these are
+        # due to spelling errors on smartasset. Replaced with the desired format
         replace_dict = {
             'dewitt': 'de_witt',
             'la_salle': 'lasalle',
             'hood_river': 'hoodriver'
         }
+        # Edge cases found where the county did not exist on the website smartasset, skipped over for now
         skip_list = [
             'unknown',
             'issaquena',
@@ -83,16 +84,19 @@ def get_property_tax_rates(state_to_cities_dict, save=True):
             county_to_rate_dict[county] = rate / 100
         for obj in towns_cities_list:
             county = obj['county']
-            # Error on their website, has a space then it doesn't
             if county in skip_list:
                 continue
+            # There was an edge case where the same named county was formatted differently for two different states,
+            # this is an error on the website smartasset
             if county in replace_dict.keys() and state != 'texas':
                 county = replace_dict[obj['county']]
             obj['rate'] = county_to_rate_dict[county]
         print(f'\t...Complete\n')
         if save:
+            # Save within the pycharm project
             with open(f'../data/structured_data/{state}.json', 'w') as file_path:
                 json.dump(state_to_cities_dict, file_path)
+            # Save to the Morty App Visual Studio Code project
             with open(f'/Users/ryanmccann/Desktop/misc/programming/morty_app/vsc_scripts/morty_app_ui/src/data/'
                       f'property_tax_rates/{state}.json', 'w') as file_path:
                 json.dump(state_to_cities_dict, file_path)
@@ -120,6 +124,7 @@ def get_cities_towns(state):
 def main():
     states_list = get_all_states(save=False)
     for state in states_list:
+        # Skipping over Alaska for now for many reasons
         if state == 'alaska':
             continue
         print(f'\n=== GETTING PROPERTY TAX RATES FOR {state} ===\n')

@@ -3,7 +3,7 @@
     Ryan McCann
 
 ~ Last updated:
-    08/28/2020
+    09/11/2020
 
 ~ Purpose:
     N/A
@@ -20,6 +20,7 @@ from property_tax_rates.scripts.link_counties_to_cities_towns import link_towns_
 
 
 def test_find_undesired_characters(state):
+    # Contains strings which should not exist in any of our dictionaries
     invalid_string_list = [
         "'",
         "[",
@@ -47,11 +48,9 @@ def test_find_undesired_characters(state):
                 if val is None:
                     continue
                 if len(val) <= 1:
-                    print(val)
                     return False
                 for string in invalid_string_list:
                     if string in val:
-                        print(string)
                         return False
     return True
 
@@ -68,6 +67,11 @@ def test_find_first_last_location(state, first_location, last_location):
 
 
 class TestEveryState(unittest.TestCase):
+
+    """
+    Functions find the first and last locations in the list of dictionaries for each state. Also searches for invalid
+    strings
+    """
 
     def test_alabama(self):
         flag_one = test_find_first_last_location(state='alabama', first_location='abbeville', last_location='york')
