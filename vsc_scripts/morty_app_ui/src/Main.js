@@ -6,7 +6,6 @@ import Home from './components/home.js';
 import Compare from './components/compare.js'
 import Contact from './components/contact.js'
 
-// Random comment, bleep bloop
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
