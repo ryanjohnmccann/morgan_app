@@ -1,15 +1,16 @@
 /**
  * @author Ryan McCann
  * @summary Contains code written for the contact page. Allows the user to type in their email, a message, and upload a picture to give us
- *          feedbac and report bugs they find.
+ *          feedback and more importantly report bugs they find.
  * @bugs When the submit button is pressed, the site crashes
  * @file contact.js
- * @version 09/11/2020
+ * @version 10/03/2020
  */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button, Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import Fade from 'react-reveal/Fade'
+import './contact.css'
 
 // Styles
 const useStyles = makeStyles((theme) => ({
@@ -17,9 +18,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center'
-  },
-  textField: {
-    textAlign: 'center',
   },
   field: {
       textAlign: 'center',
@@ -31,29 +29,43 @@ export default function LayoutTextFields() {
 
   return (
     <div className={classes.root}>
-        <Fade>
-            <Typography align="center" style={{width: '60vmin'}}>
-                If you have questions, concerns, or find any issues with the app, please contact us 
-                by leaving some contact information and a brief description below. Pictures are most helpful!
-            </Typography>     
-            <form action="POST" data-netlify="true" name="contact" className={classes.root} autoComplete="off">
-            <p>
-                <label>Your Name: <input type="text" name="name" /></label>   
-            </p>
-            <p>
-                <label>Your Email: <input type="email" name="email" /></label>
-            </p>
-            <p>
-                <label>Message: <textarea name="message"></textarea></label>
-            </p>
-            <p>
-                <input type="file"/>
-            </p>
-            <p>
-                <button type="submit">Send</button>
-            </p>
-            </form>
-        </Fade>
+      <Fade>
+        <form id="fcf-form-id" class="fcf-form-class" method="post" action="POST" data-netlify="true" name="contact">
+          <Typography align="center" style={{width: '60vmin'}}>
+              If you have questions, concerns, or find any issues, please contact us by leaving some contact information and a brief description below.
+              Screenshots are most helpful!
+          </Typography> 
+          <div class="fcf-form-group">
+              <label for="Name" class="fcf-label">Name</label>
+              <div class="fcf-input-group">
+                  <input type="text" id="Name" name="Name" class="fcf-form-control" required/>
+              </div>
+          </div>
+
+          <div class="fcf-form-group">
+              <label for="Email" class="fcf-label">Email Address</label>
+              <div class="fcf-input-group">
+                  <input type="email" id="Email" name="Email" class="fcf-form-control" required/>
+              </div>
+          </div>
+
+          <div class="fcf-form-group">
+              <label for="Message" class="fcf-label">Message</label>
+              <div class="fcf-input-group">
+                  <textarea id="Message" name="Message" class="fcf-form-control" rows="6" maxlength="3000" required></textarea>
+              </div>
+          </div>
+
+          <div class="fcf-form-group">
+                  <input type="file" name="File" id="File" class="fcf-file"/>
+                  <div data-netlify-recaptcha="true"></div>
+          </div>
+
+          <div class="fcf-form-group">
+              <button type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">SUBMIT</button>
+          </div>
+        </form>
+      </Fade>
     </div>
   );
 }

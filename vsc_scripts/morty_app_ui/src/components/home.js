@@ -1,9 +1,17 @@
+/**
+ * @author Ryan McCann
+ * @summary === UPDATE THIS ===
+ * @bugs N/A
+ * @file home.js
+ * @version 09/18/2020
+ */
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { InputAdornment, TextField, Table, TableBody,
          TableCell, TableContainer, TableHead, TableRow, 
-         Paper, Button, TablePagination } from '@material-ui/core'
+         Paper, Button, TablePagination, Select, MenuItem,
+         FormControl, InputLabel } from '@material-ui/core'
 import Fade from 'react-reveal/Fade'
 import {handle_input} from './handle_input.js'
 
@@ -11,6 +19,7 @@ const useStyles = makeStyles(theme => ({
     root: {
       display: 'flex',
       flexWrap: 'wrap',
+      justifyContent: 'center',
     },
     margin: {
       margin: theme.spacing(1.5),
@@ -45,7 +54,7 @@ const useStyles = makeStyles(theme => ({
       [theme.breakpoints.between("1000", "1030")]: {
         width: 165,
       },
-      // Larger monitors (Than my MacBook Pro 13.3")
+      // Larger monitors (compared to my MacBook Pro 13.3")
       [theme.breakpoints.between("1500", "2000")]: {
         width: 345,
       },
@@ -56,7 +65,10 @@ const useStyles = makeStyles(theme => ({
     container: {
       maxHeight: 440,
     },
-
+    formControl: {
+      margin: theme.spacing(1.5),
+      minWidth: 248.5,
+    },
   }));
   
   // Creates default data for the DataTable
@@ -98,6 +110,11 @@ const useStyles = makeStyles(theme => ({
     return stabilizedThis.map((el) => el[0]);
   }
 
+  // Creates default Select field values
+  function create_select_field(key, input_label_id, input_label_value, select_label_id, select_id, select_value) {
+    return {key, input_label_id, input_label_value, select_label_id, select_id, select_value}
+  }
+
 function Home() {
     const classes = useStyles();
     // For TextFields
@@ -106,13 +123,19 @@ function Home() {
       create_text_field(1, 'Down Payment', 'down_payment', '$', '' ,''),
       create_text_field(2, 'Interest Rate', 'interest_rate', '%', '' ,''),
       create_text_field(3, 'Loan Duration', 'loan_duration', '', 'Years' ,''),
-      create_text_field(4, 'Yearly Payments', 'yearly_payments', '', '' ,''),
+      // create_text_field(4, 'Yearly Payments', 'yearly_payments', '', '' ,''),
       create_text_field(5, 'City', 'city', '', '' ,''),
       create_text_field(6, 'State', 'state', '', '' ,''),
-      create_text_field(7, 'Type Of Property', 'type_of_property', '', '' ,''),
+      // create_text_field(7, 'Type Of Property', 'type_of_property', '', '' ,''),
       create_text_field(8, 'Income', 'income', '$', '' ,''),
-      create_text_field(9, 'Tax Filing Status', 'tax_filing_status', '', '' ,''),
+      // create_text_field(9, 'Tax Filing Status', 'tax_filing_status', '', '' ,''),
     ]);
+    // For the Select fields
+    const [select_values, set_select_values] = React.useState([
+      create_select_field(0, 'tax_filing_status_input', 'Tax Filing Status', 'tax_filing_status', 0, 'Tax Filing Status'),
+      create_select_field(1, 'yearly_payments_input', 'Yearly Payments', 'yearly_payments', 0, 'Yearly Payments'),
+      create_select_field(2, 'type_of_property_input', 'Type Of Property', 'type_of_property', 0, 'Type Of Property'),
+    ])
     // For TableRows
     const [data, set_data] = React.useState([
       create_data(0, 'Principle', 0, 0, 0),
@@ -141,6 +164,10 @@ function Home() {
       }
       set_values([...values])
     };
+    // Handle change for the Select fields
+    const handle_select_change = (event) => {
+      set_select_values(event.target.value);
+  }
     // For the submit button
     function handle_click(raw_data) {
       var response_arr = handle_input(raw_data)
@@ -165,8 +192,8 @@ function Home() {
         <div>
             {/* Fade in effect */}
             <Fade>
-            {/* Creates our TextFields */}
-            <div id="home_tfs" className={classes.root}>
+            {/* Creates our TextFields and Select fields */}
+            <div id="home_tfs_sfs" className={classes.root}>
                 {values.map(value => (
                 <TextField
                     key={value.key}
@@ -183,6 +210,23 @@ function Home() {
                     error={value.error_value}
                 />
                 ))}
+                {select_values.map(value => (
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel id={value.input_label_id}>{value.input_label_value}</InputLabel>
+                  <Select
+                    key={value.key}
+                    labelId={value.select_label_id}
+                    id={value.select_id}
+                    value={select_values}
+                    onChange={handle_select_change}
+                    label={value.select_value}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+              </FormControl>
+                ))}
             </div>
           {/* Submit Button */}
           <div style={{textAlign: 'center'}}>
@@ -194,6 +238,7 @@ function Home() {
                 Submit
               </Button>
           </div>
+
           {/* DataTable */}
           <div>
             <TableContainer component={Paper} className={classes.container}>
