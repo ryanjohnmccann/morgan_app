@@ -8,7 +8,6 @@
  */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core'
 import Fade from 'react-reveal/Fade'
 import './contact.css'
 
@@ -30,11 +29,11 @@ export default function LayoutTextFields() {
   return (
     <div className={classes.root}>
       <Fade>
-        <form id="fcf-form-id" class="fcf-form-class" method="post" action="POST" data-netlify="true" name="contact">
-          <Typography align="center" style={{width: '60vmin'}}>
-              If you have questions, concerns, or find any issues, please contact us by leaving some contact information and a brief description below.
-              Screenshots are most helpful!
-          </Typography> 
+        <form id="fcf-form-id" class="fcf-form-class" method="post" action="POST" data-netlify="true" name="contact"> 
+          <p class="fcf-p">
+            If you have questions, concerns, or find any issues, please contact us by leaving some contact information and a brief description below.
+            Screenshots are most helpful!
+          </p>
           <div class="fcf-form-group">
               <label for="Name" class="fcf-label">Name</label>
               <div class="fcf-input-group">
