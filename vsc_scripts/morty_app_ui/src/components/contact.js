@@ -29,7 +29,7 @@ export default function LayoutTextFields() {
   return (
     <div className={classes.root}>
       <Fade>
-        <form id="fcf-form-id" class="fcf-form-class" method="post" action="POST" data-netlify="true" name="contact"> 
+        <form id="fcf-form-id" class="fcf-form-class" action="POST" data-netlify="true" name="contact"> 
           <p class="fcf-p">
             If you have questions, concerns, or find any issues, please contact us by leaving some contact information and a brief description below.
             Screenshots are most helpful!
@@ -57,7 +57,6 @@ export default function LayoutTextFields() {
 
           <div class="fcf-form-group">
                   <input type="file" name="File" id="File" class="fcf-file"/>
-                  <div data-netlify-recaptcha="true"></div>
           </div>
 
           <div class="fcf-form-group">
