@@ -61,7 +61,7 @@ export default function LayoutTextFields() {
           </div>
 
           <div class="fcf-form-group">
-              <button type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">SUBMIT</button>
+              <button name="submit" type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">SUBMIT</button>
           </div>
         </form>
       </Fade>
