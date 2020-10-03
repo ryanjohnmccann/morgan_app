@@ -29,7 +29,8 @@ export default function LayoutTextFields() {
   return (
     <div className={classes.root}>
       <Fade>
-        <form id="fcf-form-id" class="fcf-form-class" action="POST" data-netlify="true" name="contact"> 
+        <form name="contact" id="fcf-form-id" class="fcf-form-class" method="post" data-netlify="true"> 
+        <input type="hidden" name="form-name" value="contact"/>
           <p class="fcf-p">
             If you have questions, concerns, or find any issues, please contact us by leaving some contact information and a brief description below.
             Screenshots are most helpful!
@@ -37,26 +38,26 @@ export default function LayoutTextFields() {
           <div class="fcf-form-group">
               <label for="Name" class="fcf-label">Name</label>
               <div class="fcf-input-group">
-                  <input type="text" id="Name" name="Name" class="fcf-form-control" required/>
+                  <input type="text" id="Name" name="name" class="fcf-form-control" required/>
               </div>
           </div>
 
           <div class="fcf-form-group">
               <label for="Email" class="fcf-label">Email Address</label>
               <div class="fcf-input-group">
-                  <input type="email" id="Email" name="Email" class="fcf-form-control" required/>
+                  <input type="email" id="Email" name="email" class="fcf-form-control" required/>
               </div>
           </div>
 
           <div class="fcf-form-group">
               <label for="Message" class="fcf-label">Message</label>
               <div class="fcf-input-group">
-                  <textarea id="Message" name="Message" class="fcf-form-control" rows="6" maxlength="3000" required></textarea>
+                  <textarea id="Message" name="message" class="fcf-form-control" rows="6" maxlength="3000" required></textarea>
               </div>
           </div>
 
           <div class="fcf-form-group">
-                  <input type="file" name="File" id="File" class="fcf-file"/>
+                  <input type="file" name="file" id="File" class="fcf-file"/>
           </div>
 
           <div class="fcf-form-group">
