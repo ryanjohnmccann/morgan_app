@@ -30,6 +30,7 @@ export default function LayoutTextFields() {
     <div className={classes.root}>
       <Fade>
         <form name="contact" method="POST" action="POST" netlify-honeypot="bot-field" data-netlify="true" id="fcf-form-id" class="fcf-form-class"> 
+        <input type="hidden" name="form-name" value="contact" />
           <p class="hidden">
             <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
           </p>
@@ -37,6 +38,7 @@ export default function LayoutTextFields() {
             If you have questions, concerns, or find any issues, please contact us by leaving some contact information and a brief description below.
             Screenshots are most helpful!
           </p>
+
           <div class="fcf-form-group">
               <label for="Name" class="fcf-label">Name</label>
               <div class="fcf-input-group">
@@ -57,11 +59,12 @@ export default function LayoutTextFields() {
                   <textarea id="Message" name="message" class="fcf-form-control" rows="6" maxlength="3000" required></textarea>
               </div>
           </div>
-          
+
           <div data-netlify-recaptcha="true"></div>
           <div class="fcf-form-group">
               <button name="submit" type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">SUBMIT</button>
           </div>
+
         </form>
       </Fade>
     </div>
