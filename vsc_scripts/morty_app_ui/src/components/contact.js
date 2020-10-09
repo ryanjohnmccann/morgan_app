@@ -27,9 +27,12 @@ export default function LayoutTextFields() {
   const classes = useStyles();
 
   return (
-    // <div className={classes.root}>
-    //   <Fade>
-        <form name="contact" method="POST" data-netlify="true" id="fcf-form-id" class="fcf-form-class"> 
+    <div className={classes.root}>
+      <Fade>
+        <form name="contact" method="POST" netlify-honeypot="bot-field" data-netlify="true" id="fcf-form-id" class="fcf-form-class"> 
+          <p class="hidden">
+            <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+          </p>
           <p class="fcf-p">
             If you have questions, concerns, or find any issues, please contact us by leaving some contact information and a brief description below.
             Screenshots are most helpful!
@@ -58,12 +61,12 @@ export default function LayoutTextFields() {
           <div class="fcf-form-group">
                   <input type="file" name="file" id="File" class="fcf-file"/>
           </div>
-
+          <div data-netlify-recaptcha="true"></div>
           <div class="fcf-form-group">
               <button name="submit" type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">SUBMIT</button>
           </div>
         </form>
-    //   </Fade>
-    // </div>
+      </Fade>
+    </div>
   );
 }
