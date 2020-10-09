@@ -4,7 +4,7 @@
  *          feedback and more importantly report bugs they find.
  * @bugs When the submit button is pressed, the site crashes
  * @file contact.js
- * @version 10/03/2020
+ * @version 10/09/2020
  */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,8 +29,7 @@ export default function LayoutTextFields() {
   return (
     <div className={classes.root}>
       <Fade>
-        <form name="contact" id="fcf-form-id" class="fcf-form-class" method="post" data-netlify="true" netlify> 
-          <input type="hidden" name="form-name" value="contact"/>
+        <form name="contact" method="POST" data-netlify="true" id="fcf-form-id" class="fcf-form-class"> 
           <p class="fcf-p">
             If you have questions, concerns, or find any issues, please contact us by leaving some contact information and a brief description below.
             Screenshots are most helpful!
