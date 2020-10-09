@@ -29,8 +29,8 @@ export default function LayoutTextFields() {
   return (
     <div className={classes.root}>
       <Fade>
-        <form name="contact" id="fcf-form-id" class="fcf-form-class" method="post" data-netlify="true"> 
-        <input type="hidden" name="form-name" value="contact"/>
+        <form name="contact" id="fcf-form-id" class="fcf-form-class" method="post" data-netlify="true" netlify> 
+          <input type="hidden" name="form-name" value="contact"/>
           <p class="fcf-p">
             If you have questions, concerns, or find any issues, please contact us by leaving some contact information and a brief description below.
             Screenshots are most helpful!
