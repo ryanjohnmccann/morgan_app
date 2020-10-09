@@ -141,3 +141,7 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
     text-align: center;
     width: 60vmin;
 }
+
+.hidden {
+    visibility: hidden;
+}
