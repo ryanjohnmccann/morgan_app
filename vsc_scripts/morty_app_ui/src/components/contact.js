@@ -27,8 +27,8 @@ export default function LayoutTextFields() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <Fade>
+    // <div className={classes.root}>
+    //   <Fade>
         <form name="contact" method="POST" data-netlify="true" id="fcf-form-id" class="fcf-form-class"> 
           <p class="fcf-p">
             If you have questions, concerns, or find any issues, please contact us by leaving some contact information and a brief description below.
@@ -63,7 +63,7 @@ export default function LayoutTextFields() {
               <button name="submit" type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">SUBMIT</button>
           </div>
         </form>
-      </Fade>
-    </div>
+    //   </Fade>
+    // </div>
   );
 }
