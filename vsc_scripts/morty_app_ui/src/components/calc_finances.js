@@ -1,15 +1,23 @@
+/**
+ * @author Ryan McCann
+ * @summary Calculates all necessary costs and return appropriately structured results.
+ * @bugs N/A
+ * @file calc_finances.js
+ * @version 12/23/2020
+ */
+
 class run_simulation {
     constructor(error_checked_arr) {
         this.purchase_price = error_checked_arr[0]['purchase_price']
         this.down_payment = error_checked_arr[1]['down_payment']
         this.interest_rate = error_checked_arr[2]['interest_rate'] / 100
         this.loan_duration = error_checked_arr[3]['loan_duration']
-        this.yearly_payments = error_checked_arr[4]['yearly_payments']
-        this.city = error_checked_arr[5]['city']
-        this.state = error_checked_arr[6]['state']
-        this.property_type = error_checked_arr[7]['property_type']
-        this.income = error_checked_arr[8]['income']
-        this.tax_filing_status = error_checked_arr[9]['tax_filing_status']
+        this.city = error_checked_arr[4]['city']
+        this.state = error_checked_arr[5]['state']
+        this.income = error_checked_arr[6]['income']
+        this.tax_filing_status = error_checked_arr[7]['tax_filing_status']
+        this.yearly_payments = error_checked_arr[8]['yearly_payments']
+        this.property_type = error_checked_arr[9]['property_type']
         this.monthly_interest = this.interest_rate / this.yearly_payments
         // Equation found online. A monthly payment formula for a home mortgage
         this.payment_due = (this.purchase_price - this.down_payment) /
@@ -79,7 +87,7 @@ class run_simulation {
         return [monthly_property_tax, yearly_property_tax, total_property_tax]
     }
     calculate_maintenance() {
-        if (this.property_type === 'house' || this.property_type === 'home') {
+        if (this.property_type === 'house') {
             var yearly_upkeep = this.purchase_price * 0.005
         }
         else {
@@ -116,15 +124,7 @@ class run_simulation {
         //  Add up exactly
         total_costs = pmi_arr[2] + interest_arr[2] + property_tax_arr[2] +
                         maintenance_arr[2] + principle_payment_arr[2]
-        // if (this.loan_duration < 30) {
-        //     // var smart_savings = this.calculate_smart_savings()
-        //     console.log('Nothing, for now.')
-        // }
-        // else {
-        //     var smart_savings = 0
-        // }
-        // // Recommended maximum monthly payment
-        // var rec_payment = this.income * (0.25 / 12),
+        // EVENTUALLY WANT TO ADD SMART SAVINGS HERE
         // Total recurring and non-recurring expenses
         var tot_rec_exp,
         tot_non_rec_exp,
@@ -215,7 +215,7 @@ class run_simulation {
                     temp_rev = before_dec[r]
                     reversed_bef_dec += temp_rev
                 }
-                // Adds commas
+                // Adds commas back
                 for (k = 0; k < reversed_bef_dec.length; k++) {
                     var temp_let = reversed_bef_dec[k]
                     count += 1

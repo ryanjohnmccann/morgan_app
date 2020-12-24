@@ -4,7 +4,6 @@ import { AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import Home from './components/home.js';
 import Compare from './components/compare.js'
-import Contact from './components/contact.js'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -75,7 +74,8 @@ function Main() {
         >
           <LinkTab label="Home" href="/home" {...a11yProps(0)} />
           <LinkTab label="Compare" href="/compare" {...a11yProps(1)} />
-          <LinkTab label="Contact" href="/contact" {...a11yProps(2)} />
+          {/* This is the contact tab, commented out for now because it doesn't work */}
+          {/* <LinkTab label="Contact" href="/contact" {...a11yProps(2)} /> */}
         </Tabs>
       </AppBar>
     {/* Home tab */}
@@ -86,10 +86,9 @@ function Main() {
     <TabPanel value={value} index={1}>
       <Compare/>
     </TabPanel>
-    {/* Contact tab */}
-    <TabPanel value={value} index={2}>
-      <Contact/>
-    </TabPanel>
+    {/* Empty tab */}
+    {/* <TabPanel value={value} index={2}>
+    </TabPanel> */}
   </div>
   )
 }
