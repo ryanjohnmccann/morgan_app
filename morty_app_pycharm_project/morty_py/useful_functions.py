@@ -3,7 +3,7 @@
     Ryan McCann
 
 ~ Last updated:
-    09/11/2020
+    12/19/2020
 
 ~ Purpose:
     Contains functions used in multiple scripts in this project.
@@ -79,3 +79,13 @@ def clean_string_property_taxes(string):
     if not len(new_string):
         raise Warning('=== EMPTY STRING WAS RETURNED ===')
     return new_string
+
+
+def clean_string_js(string):
+    """
+
+    :param string:
+    :return:
+    """
+    string = string.lower()
+    return string.replace(' ', '_')
