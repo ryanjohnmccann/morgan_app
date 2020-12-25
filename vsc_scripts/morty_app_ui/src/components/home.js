@@ -3,7 +3,7 @@
  * @summary The home page. Allows the user to input their details and display details about their mortgage with ease
  * @bugs N/A
  * @file home.js
- * @version 12/23/2020
+ * @version 12/25/2020
  */
 import React from 'react';
 import clsx from 'clsx';
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
       },
       // iPhone 6, 7, 8 Plus
       [theme.breakpoints.between("411", "420")]: {
-        width: 150,
+        width: 145,
       },
       // iPad
       [theme.breakpoints.between("750", "770")]: {
@@ -64,10 +64,6 @@ const useStyles = makeStyles(theme => ({
     },
     container: {
       maxHeight: 440,
-    },
-    formControl: {
-      margin: theme.spacing(1.5),
-      minWidth: 248.5,
     },
   }));
   
@@ -276,12 +272,15 @@ function Home() {
                 ))}
                 {/* Creates Selections */}
                 {select_values.map(select_value => (
-                  <FormControl key={select_value.fc_key} variant="outlined" className={classes.formControl}>
-                    <InputLabel key={select_value.il_key} id="demo-simple-select-outlined-label">{select_value.label_value}</InputLabel>
+                  <FormControl key={select_value.fc_key} variant="outlined" className={classes.root}>
+                    <InputLabel key={select_value.il_key} id="demo-simple-select-outlined-label" className={clsx(classes.margin, classes.textField)}
+                    >{select_value.label_value}
+                    </InputLabel>
                     <Select
                       key={select_value.s_key}
                       labelId="demo-simple-select-outlined-label"
                       id={select_value.select_id}
+                      className={clsx(classes.margin, classes.textField)}
                       value={select_value.select_value}
                       onChange={handle_select_change(select_value.s_key)}
                       label={select_value.label_value}
