@@ -106,16 +106,16 @@ const useStyles = makeStyles(theme => ({
   ];
   const yearly_payments_arr = [
     {
-      value: 'Monthly',
-      label: 'Monthly',
+      value: '12 (Monthly)',
+      label: '12 (Monthly)',
     },
     {
-      value: 'Bi-Weekly',
-      label: 'Bi-Weekly',
+      value: '26 (Bi-Weekly)',
+      label: '26 (Bi-Weekly)',
     },
     {
-      value: 'Weekly',
-      label: 'Weekly',
+      value: '52 (Weekly)',
+      label: '52 (Weekly)',
     },
   ];
   const property_type_arr = [

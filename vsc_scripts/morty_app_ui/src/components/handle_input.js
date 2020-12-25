@@ -3,7 +3,7 @@
  * @summary Error checks and structures input from the user in the home tab.
  * @bugs N/A
  * @file handle_input.js
- * @version 12/23/2020
+ * @version 12/25/2020
  */
 
 import {initiate_sim} from './calc_finances.js'
@@ -129,10 +129,10 @@ export function handle_input (input) {
         }
         // Convert the String of yearly payments to a numerical value
         else if (i === 8) {
-            if (des_values_arr[i] === "Monthly") {
+            if (des_values_arr[i] === "12 (Monthly)") {
                 des_values_arr[i] = 12
             }
-            else if (des_values_arr[i] === "Bi-Weekly") {
+            else if (des_values_arr[i] === "26 (Bi-Weekly)") {
                 des_values_arr[i] = 26
             }
             else {
