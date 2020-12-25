@@ -3,7 +3,7 @@
  * @summary Calculates all necessary costs and return appropriately structured results.
  * @bugs N/A
  * @file calc_finances.js
- * @version 12/23/2020
+ * @version 12/25/2020
  */
 
 class run_simulation {
@@ -109,14 +109,10 @@ class run_simulation {
         interest_arr = this.calculate_interest(),
         property_tax_arr = this.calculate_property_tax(),
         maintenance_arr = this.calculate_maintenance(),
-        // The average principle is the difference from the average interest
-        monthly_principle = interest_arr[0] - this.payment_due
-        if (monthly_principle <= 0) {
-            monthly_principle = this.payment_due - interest_arr[0]
-        }
-        var yearly_principle = monthly_principle * 12,
-        principle_payment_arr = [monthly_principle, yearly_principle,
-                                (this.purchase_price - this.down_payment)],
+        total_principle = this.purchase_price - this.down_payment,
+        yearly_principle = total_principle / this.loan_duration,
+        monthly_principle = yearly_principle / 12,
+        principle_payment_arr = [monthly_principle, yearly_principle, total_principle],
         monthly_costs = pmi_arr[0] + interest_arr[0] + property_tax_arr[0] +
                         maintenance_arr[0] + principle_payment_arr[0],
         yearly_costs = monthly_costs * 12,
