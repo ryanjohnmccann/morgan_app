@@ -3,7 +3,7 @@
  * @summary The home page. Allows the user to input their details and display details about their mortgage with ease
  * @bugs N/A
  * @file home.js
- * @version 12/25/2020
+ * @version 01/09/2021
  */
 import React from 'react';
 import clsx from 'clsx';
@@ -11,9 +11,43 @@ import { makeStyles } from '@material-ui/core/styles';
 import { InputAdornment, TextField, Table, TableBody,
          TableCell, TableContainer, TableHead, TableRow, 
          Paper, Button, TablePagination, Select, MenuItem,
-         FormControl, InputLabel } from '@material-ui/core'
+         FormControl, InputLabel, Container, Grid, Hidden, } from '@material-ui/core'
 import Fade from 'react-reveal/Fade'
 import {handle_input} from './handle_input.js'
+import { ResponsivePie } from '@nivo/pie'
+import {useful_functions} from '../morty_js/useful_functions'
+
+var useful_function_methods = new useful_functions()
+
+// Overlay margin params
+const margin = { top: 30, right: 30, bottom: 30, left: 30 };
+
+// Legend for the Pie chart
+const legend = [
+  {
+      anchor: 'bottom',
+      direction: 'row',
+      justify: false,
+      translateX: 15,
+      translateY: 25,
+      itemsSpacing: 0,
+      itemWidth: 100,
+      itemHeight: 0,
+      itemTextColor: 'black',
+      itemDirection: 'left-to-right',
+      itemOpacity: 1,
+      symbolSize: 20,
+      symbolShape: 'circle',
+      effects: [
+          {
+              on: 'hover',
+              style: {
+                  itemTextColor: 'red'
+              }
+          }
+      ]
+  }
+]
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -25,45 +59,41 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(1.5),
     },
     textField: {
-      width: 248,
-      // iPhone 5, SE
-      [theme.breakpoints.between("0", "360")]: {
-        width: 100,
-      },
-      // Galaxy S5
-      [theme.breakpoints.between("360", "370")]: {
-        width: 120,
-      },
-      // iPhone 6, 7, 8
-      [theme.breakpoints.between("370", "380")]: {
-        width: 130,
-      },
-      // Pixel 2, Pixel 2 XL
-      [theme.breakpoints.between("400", "411")]: {
-        width: 145,
-      },
-      // iPhone 6, 7, 8 Plus
-      [theme.breakpoints.between("411", "420")]: {
-        width: 145,
-      },
-      // iPad
-      [theme.breakpoints.between("750", "770")]: {
-        width: 115,
-      },
-      // iPad Pro
-      [theme.breakpoints.between("1000", "1030")]: {
-        width: 165,
-      },
-      // Larger monitors (compared to my MacBook Pro 13.3 inch)
-      [theme.breakpoints.between("1500", "2000")]: {
-        width: 345,
-      },
+      width: "30.2vmin",
     },
     table: {
       width: '100%',
     },
     container: {
       maxHeight: 440,
+      maxWidth: 530,
+    },
+    pie: {
+      height: 440,
+      fontFamily: "consolas, sans-serif",
+      textAlign: "center",
+      fontWeight: 'bold',
+      position: 'relative',
+    },
+    overlay: {
+      position: "absolute",
+      top: 0,
+      right: margin.right,
+      bottom: 35,
+      left: margin.left,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "6vmin",
+      fontWeight: 'normal',
+      color: "black",
+      textAlign: "center",
+      // This is important to preserve the chart interactivity
+      pointerEvents: "none"
+    },
+    totalLabel: {
+      fontSize: "3.5vmin",
     },
   }));
   
@@ -158,6 +188,10 @@ const useStyles = makeStyles(theme => ({
     return stabilizedThis.map((el) => el[0]);
   }
 
+  function create_pi_data(id, label, value, color) {
+    return {id, label, value, color}
+  }
+
 function Home() {
     const classes = useStyles();
     // For TextFields
@@ -171,9 +205,9 @@ function Home() {
       create_text_field(6, 'Income', 'income', '$', '' ,''),
     ]);
     const [select_values, set_select_values] = React.useState([
-      create_select_field(0, 1, 2, 'Tax Filing Status', 'Tax Filing Status', '', tax_filing_status_arr),
-      create_select_field(3, 4, 5, 'Yearly Payments', 'Yearly Payments', '', yearly_payments_arr),
-      create_select_field(6, 7, 8, 'Type Of Property', 'Type Of Property', '', property_type_arr)
+      create_select_field(0, 1, 2, 'Tax Filing Status', 'Tax Filing Status', ' ', tax_filing_status_arr),
+      create_select_field(3, 4, 5, 'Yearly Payments', 'Yearly Payments', ' ', yearly_payments_arr),
+      create_select_field(6, 7, 8, 'Type Of Property', 'Type Of Property', ' ', property_type_arr)
     ]);
     // For TableRows
     const [data, set_data] = React.useState([
@@ -233,6 +267,7 @@ function Home() {
       var response_arr = handle_input(raw_data)
       if (response_arr !== null) {
         set_data(response_arr)
+        handle_pi_data(response_arr)
       }
     }
     // For TablePagination
@@ -247,106 +282,181 @@ function Home() {
     };
     const [order] = React.useState('asc');
     const [orderBy] = React.useState('id');
-
+    // For pi chart
+    const [pi_data, set_pi_data] = React.useState([
+      create_pi_data('Principle', 'Principle', 500, 'hsl(318, 70%, 50%)'),
+      create_pi_data('Interest', 'Interest', 200, 'hsl(202, 70%, 50%)'),
+      create_pi_data('PMI', 'PMI', 50, 'hsl(177, 70%, 50%)'),
+      create_pi_data('Taxes', 'Taxes', 100, 'hsl(19, 70%, 50%)'),
+      create_pi_data('Maintenance', 'Maintenance', 50, 'hsl(105, 70%, 50%)'),
+    ])
+    // Monthly payment to display in the middle of the pi-chart
+    const [monthly_payment, set_monthly_payment] = React.useState('$900')
+    // Updates the data displayed on the pi chart
+    function handle_pi_data(arr) {
+      var mod_arr, res_arr = [], i
+      // Don't display a value if it's zero
+      mod_arr = [
+        {id: 'Principle', label: 'Principle', value: parseInt(useful_function_methods.remove_commas(arr[0]['monthly'])), color: 'hsl(318, 70%, 50%)'},
+        {id: 'Interest', label: 'Interest', value: parseInt(useful_function_methods.remove_commas(arr[1]['monthly'])), color: 'hsl(202, 70%, 50%)'},
+        {id: 'PMI', label: 'PMI', value: parseInt(useful_function_methods.remove_commas(arr[2]['monthly'])), color: 'hsl(177, 70%, 50%)'},
+        {id: 'Taxes', label: 'Taxes', value: parseInt(useful_function_methods.remove_commas(arr[3]['monthly'])), color: 'hsl(19, 70%, 50%)'},
+        {id: 'Maintenance', label: 'Maintenance', value: parseInt(useful_function_methods.remove_commas(arr[4]['monthly'])), color: 'hsl(105, 70%, 50%)'},
+      ]
+      // Don't display a value if it's zero
+      for (i = 0; i < mod_arr.length; i++) {
+        if (mod_arr[i]['value'] === 0) {
+          continue
+        }
+        res_arr.push(mod_arr[i])
+      }
+      set_pi_data([...res_arr])
+      set_monthly_payment('$' + arr[8]['monthly'])
+    }
+    const handle_pi_click = event => {
+      const info_arr = [
+        {Principle: 'Explanation of principle calculation coming soon!'},
+        {Interest: 'Explanation of interest calculation coming soon!'},
+        {PMI: 'Explanation of private mortgage insurance calculation coming soon!'},
+        {Taxes: 'Explanation of property taxes calculation coming soon!'},
+        {Maintenance: 'Explanation of maintenance calculation coming soon!'},
+      ]
+      var i
+      for (i = 0; i < info_arr.length; i++) {
+        if (event['id'] === Object.keys(info_arr[i])[0]) {
+          window.alert(Object.values(info_arr[i])[0])
+        }
+      }
+    }
     return(
         <div>
-            {/* Fade in effect */}
-            <Fade>
             {/* Creates TextFields */}
-            <div id="home_tfs_sfs" className={classes.root}>
-                {values.map(value => (
-                  <TextField
-                      key={value.key}
-                      label={value.label}
-                      id={value.id}
-                      className={clsx(classes.margin, classes.textField)}
-                      InputProps={{
-                      startAdornment: <InputAdornment position="start">{value.start_adornment}</InputAdornment>,
-                      endAdornment: <InputAdornment position="start">{value.end_adornment}</InputAdornment>,
-                      }}
-                      variant="outlined"
-                      value={value.value}
-                      onChange={handle_change(value.key)}
-                      error={value.error_value}
-                  />
-                ))}
-                {/* Creates Selections */}
-                {select_values.map(select_value => (
-                  <FormControl key={select_value.fc_key} variant="outlined" className={classes.root}>
-                    <InputLabel key={select_value.il_key} id="demo-simple-select-outlined-label" className={clsx(classes.margin, classes.textField)}
-                    >{select_value.label_value}
-                    </InputLabel>
-                    <Select
-                      key={select_value.s_key}
-                      labelId="demo-simple-select-outlined-label"
-                      id={select_value.select_id}
-                      className={clsx(classes.margin, classes.textField)}
-                      value={select_value.select_value}
-                      onChange={handle_select_change(select_value.s_key)}
-                      label={select_value.label_value}
-                    >
-                      {select_value.labels_arr.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                ))}
-            </div>
-          {/* Submit Button */}
-          <div style={{textAlign: 'center'}}>
-            <Button 
-                      size="large" variant="contained" color="primary" 
-                      style={{marginBottom: '5.2vmin'}}
-                      onClick={() => handle_click(values, select_values)}
-              >
-                Submit
-              </Button>
-          </div>
-
-          {/* DataTable */}
-          <div>
-            <TableContainer component={Paper} className={classes.container}>
-              <Table stickyHeader className={classes.table} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Expenses</TableCell>
-                    <TableCell align="right">Monthly&nbsp;($)</TableCell>
-                    <TableCell align="right">Yearly&nbsp;($)</TableCell>
-                    <TableCell align="right">Total&nbsp;($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                {/* Creates rows for the DataTable */}
-                <TableBody>
-                {stable_sort(data, get_comparator(order, orderBy))
-                    .slice(page * rows_per_page, page * rows_per_page + rows_per_page)
-                    .map((row) => {
-                      return (
-                        <TableRow key={row.name} hover>
-                        <TableCell component="th" scope="row">
-                          {row.name}
-                        </TableCell>
-                        <TableCell align="right">{row.monthly}</TableCell>
-                        <TableCell align="right">{row.yearly}</TableCell>
-                        <TableCell align="right">{row.total}</TableCell>
-                      </TableRow>
-                      );
-                    })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[6, 9]}
-              component="div"
-              count={data.length}
-              rowsPerPage={rows_per_page}
-              page={page}
-              onChangePage={handle_change_page}
-              onChangeRowsPerPage={handle_change_rows_per_page}
-            />
-          </div>
-        </Fade>
+            <Fade top cascade>
+              <div id="home_tfs_sfs" className={classes.root}>
+                  {values.map(value => (
+                    <TextField
+                        key={value.key}
+                        label={value.label}
+                        id={value.id}
+                        className={clsx(classes.margin, classes.textField)}
+                        InputProps={{
+                        startAdornment: <InputAdornment position="start">{value.start_adornment}</InputAdornment>,
+                        endAdornment: <InputAdornment position="start">{value.end_adornment}</InputAdornment>,
+                        }}
+                        variant="outlined"
+                        value={value.value}
+                        onChange={handle_change(value.key)}
+                        error={value.error_value}
+                    />
+                  ))}
+                  {/* Creates Selections */}
+                  {select_values.map(select_value => (
+                    <FormControl key={select_value.fc_key} variant="outlined" className={classes.root}>
+                      <InputLabel key={select_value.il_key} id="demo-simple-select-outlined-label" className={clsx(classes.margin, classes.textField)}
+                      >{select_value.label_value}
+                      </InputLabel>
+                      <Select
+                        key={select_value.s_key}
+                        labelId="demo-simple-select-outlined-label"
+                        id={select_value.select_id}
+                        className={clsx(classes.margin, classes.textField)}
+                        value={select_value.select_value}
+                        onChange={handle_select_change(select_value.s_key)}
+                        label={select_value.label_value}
+                      >
+                        {select_value.labels_arr.map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  ))}
+              </div>
+              {/* Submit Button */}
+              <div style={{textAlign: 'center'}}>
+                <Button 
+                          size="large" variant="contained" color="primary" 
+                          style={{marginBottom: '5.2vmin'}}
+                          onClick={() => handle_click(values, select_values)}
+                  >
+                    Submit
+                  </Button>
+              </div>
+            </Fade>
+          {/* DataTable and Pie Chart */}
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={12} md={6} lg={6}>
+              <Fade left cascade>
+                <Container>
+                  <div className={classes.pie}>
+                    <ResponsivePie 
+                      margin={{ bottom: 40 }}
+                      data={pi_data}
+                      colors={{ scheme: 'category10' }}
+                      innerRadius={0.7}
+                      padAngle={1}
+                      cornerRadius={5}
+                      enableRadialLabels={false}
+                      legends={legend}
+                      borderWidth={1}
+                      borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
+                      sliceLabelsTextColor="#333333"
+                      onClick={handle_pi_click}
+                    />
+                    <div className={classes.overlay}>
+                      <span>{monthly_payment}</span>
+                      <span className={classes.totalLabel}>Monthly Payment</span>
+                    </div>
+                  </div>
+                </Container>
+              </Fade>
+            </Grid>
+            <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Hidden smDown>
+               <Fade right cascade>
+                  <TableContainer component={Paper} className={classes.container}>
+                    <Table stickyHeader className={classes.table} aria-label="simple table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Expenses</TableCell>
+                          <TableCell align="right">Monthly&nbsp;($)</TableCell>
+                          <TableCell align="right">Yearly&nbsp;($)</TableCell>
+                          <TableCell align="right">Total&nbsp;($)</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      {/* Creates rows for the DataTable */}
+                      <TableBody>
+                      {stable_sort(data, get_comparator(order, orderBy))
+                          .slice(page * rows_per_page, page * rows_per_page + rows_per_page)
+                          .map((row) => {
+                            return (
+                              <TableRow key={row.name} hover>
+                              <TableCell component="th" scope="row">
+                                {row.name}
+                              </TableCell>
+                              <TableCell align="right">{row.monthly}</TableCell>
+                              <TableCell align="right">{row.yearly}</TableCell>
+                              <TableCell align="right">{row.total}</TableCell>
+                            </TableRow>
+                            );
+                          })}
+                      </TableBody>
+                    </Table>
+                    <TablePagination
+                    rowsPerPageOptions={[6, 9]}
+                    component="div"
+                    count={data.length}
+                    rowsPerPage={rows_per_page}
+                    page={page}
+                    onChangePage={handle_change_page}
+                    onChangeRowsPerPage={handle_change_rows_per_page}
+                    />
+                  </TableContainer>
+                </Fade>
+              </Hidden>
+            </Grid>
+          </Grid>
       </div>
     )
 }
