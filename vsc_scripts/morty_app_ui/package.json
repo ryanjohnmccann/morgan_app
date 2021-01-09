@@ -5,14 +5,19 @@
   "dependencies": {
     "@material-ui/core": "^4.9.13",
     "@material-ui/icons": "^4.9.1",
+    "@nivo/core": "^0.67.0",
+    "@nivo/legends": "^0.67.0",
+    "@nivo/pie": "^0.67.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.5.0",
+    "nivo": "^0.31.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-reveal": "^1.2.2",
-    "react-scripts": "^4.0.1"
+    "react-scripts": "^4.0.1",
+    "victory": "^35.4.4"
   },
   "scripts": {
     "start": "react-scripts start",

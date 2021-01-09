@@ -48,7 +48,6 @@ function error_check_input (input_list) {
     }
     var check_state = false, check_city = false, found_state = false
     var user_state = useful_function_methods.clean_string(input_list[5]['state'])
-    console.log(user_state)
     while(!found_state) {
         for (j = 0; j < abbr_to_name_arr.length; j++) {
             // Current abbreviation and current state
