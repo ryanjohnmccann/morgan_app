@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(1.5),
     },
     textField: {
-      width: "30.2vmin",
+      width: "29vmin",
     },
     table: {
       width: '100%',
