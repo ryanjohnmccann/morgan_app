@@ -1,5 +1,4 @@
 # Morty Mortgage
-<img alt="JavaScript" width="50px" src="public/pub_images/android-chrome-192x192.png"/>
 https://mortymortgage.com
 
 ## Morty, A More Efficient Mortgage Calculator
