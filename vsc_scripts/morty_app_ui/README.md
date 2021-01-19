@@ -1,5 +1,5 @@
 # Morty Mortgage
-[![Website](https://mortymortgage.com)]
+https://mortymortgage.com
 
 ## Morty, a more efficient mortgage calculator
 Type in some basic information and your home buying expenses are laid out with ease. Easily compare multiple home purchases and receive feedback along with suggestions from Morty, a virtual assistant to help you make the best possible and informed decisions.
@@ -8,9 +8,9 @@ Type in some basic information and your home buying expenses are laid out with e
 v1.0
 
 ### Languages and Tools
-<img align="left" alt="JavaScript" width="35px" src="src/photos/javascript.png"/>
-<img align="left" alt="React" width="35px" src="src/photos/react.png"/>
-<img align="left" alt="Python" width="35px" src="src/photos/python.png"/>
+<img align="left" alt="JavaScript" width="50px" src="src/photos/javascript.png"/>
+<img align="left" alt="React" width="50px" src="src/photos/react.png"/>
+<img align="left" alt="Python" width="50px" src="src/photos/python.png"/>
 
 
 ## License
