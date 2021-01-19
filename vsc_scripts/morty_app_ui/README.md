@@ -1,5 +1,5 @@
 # Morty Mortgage
-<img align="left" alt="JavaScript" width="50px" src="public/pub_images/android-chrome-192x192"/>
+<img alt="JavaScript" width="50px" src="public/pub_images/android-chrome-192x192.png"/>
 https://mortymortgage.com
 
 ## Morty, A More Efficient Mortgage Calculator
@@ -9,8 +9,8 @@ Type in some basic information and your home buying expenses are laid out with e
 v1.0
 
 ## Languages
-<img align="left" alt="JavaScript" width="50px" src="src/photos/javascript.png"/>
-<img align="left" alt="Python" width="50px" src="src/photos/python.png"/>
+<img alt="JavaScript" width="50px" src="src/photos/javascript.png"/>
+<img alt="Python" width="50px" src="src/photos/python.png"/>
 
 
 ## License
