@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Morty Mortgage
 https://mortymortgage.com
 
@@ -16,3 +17,7 @@ v1.0
 Copyright (c) 2020 Ryan McCann - All Rights Reserved
 
 Unauthorized copying of this project/repository, via any medium is strictly prohibited without written permission from the admin of this repository.
+=======
+# Morty Mortgage (morty_app)
+Morty, a more efficient mortgage calculator.
+>>>>>>> 3cdebb224e78611387c3f25c6e676993dda1b2ec
