@@ -8,8 +8,8 @@ Type in some basic information and your home buying expenses are laid out with e
 v1.0
 
 ## Languages
-<img alt="JavaScript" width="50px" src="src/photos/javascript.png"/>
-<img alt="Python" width="50px" src="src/photos/python.png"/>
+<img alt="JavaScript" width="50px" src="vsc_scripts/morty_app_ui/src/photos/javascript.png"/>
+<img alt="Python" width="50px" src="vsc_scripts/morty_app_ui/src/photos/python.png"/>
 
 
 ## License
