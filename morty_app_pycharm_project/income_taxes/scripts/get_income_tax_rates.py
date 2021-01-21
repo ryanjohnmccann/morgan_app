@@ -3,7 +3,7 @@
     Ryan McCann
 
 ~ Last updated:
-    01/18/2020
+    01/19/2020
 
 ~ Purpose:
     To collect federal and state income tax rates
