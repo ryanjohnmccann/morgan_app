@@ -1,33 +1,60 @@
 import React from 'react';
 import Fade from 'react-reveal/Fade'
 import { makeStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import { ExpansionPanelDetails, ExpansionPanelSummary, InputAdornment, 
-          Typography, TextField, Button, Table, TableBody, TableCell, 
+import { TextField, Button, Table, TableBody, TableCell, 
           TableContainer, TableHead, TableRow, Paper, TablePagination,
-          Grid, Hidden } from '@material-ui/core'
+          Grid, Hidden, Tabs, Tab, Typography, Box, InputAdornment,
+          FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 import clsx from 'clsx';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import PropTypes from 'prop-types';
 import {handle_mult_input} from './handle_mult_input.js'
+
+// For the TabPanels to work
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={0}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    display: 'flex',
   },
   textField: {
-    width: "29vmin",
+    marginTop: '0px',
+    width: "25vmin",
   },
   margin: {
-    margin: theme.spacing(1.3)
+    margin: theme.spacing(1)
   },
   table: {
     width: '100%',
@@ -41,6 +68,9 @@ const useStyles = makeStyles((theme) => ({
       float: 'none',
       width: '100%',
     },
+    tabs: {
+      borderRight: `1px solid ${theme.palette.divider}`,
+    },
   },
 }));
 
@@ -48,6 +78,59 @@ const useStyles = makeStyles((theme) => ({
 function create_text_field(key, label, id, start_adornment, end_adornment, value) {
   return {key, label, id, start_adornment, end_adornment, value, error_value: false}
 }
+
+// Create SelectFields
+function create_select_field(fc_key, il_key, s_key, label_value, select_id, value, labels_arr) {
+  return {fc_key, il_key, s_key, label_value, select_id, value, labels_arr}
+}
+
+// For changing SelectField values
+const tax_filing_status_arr = [
+  {
+    value: 'Single',
+    label: 'Single',
+  },
+  {
+    value: 'Married (Joint)',
+    label: 'Married (Joint)',
+  },
+  {
+    value: 'Married (Separate)',
+    label: 'Married (Separate)',
+  },
+  {
+    value: 'Head of Household',
+    label: 'Head of Household',
+  },
+];
+const yearly_payments_arr = [
+  {
+    value: '12 (Monthly)',
+    label: '12 (Monthly)',
+  },
+  {
+    value: '26 (Bi-Weekly)',
+    label: '26 (Bi-Weekly)',
+  },
+  {
+    value: '52 (Weekly)',
+    label: '52 (Weekly)',
+  },
+  ];
+const property_type_arr = [
+  {
+    value: 'House',
+    label: 'House',
+  },
+  {
+    value: 'Condo',
+    label: 'Condo',
+  },
+  {
+    value: 'Apartment',
+    label: 'Apartment',
+  },
+];
 
 // Creates default data for the DataTable
 function create_data(id, name, monthly, yearly, total) {
@@ -90,24 +173,28 @@ export default function Compare() {
     create_text_field(1, 'Down Payment', 'down_payment_a', '$', '' ,''),
     create_text_field(2, 'Interest Rate', 'interest_rate_a', '%', '' ,''),
     create_text_field(3, 'Loan Duration', 'loan_duration_a', '', 'Years' ,''),
-    create_text_field(4, 'Yearly Payments', 'yearly_payments_a', '', '' ,''),
-    create_text_field(5, 'City', 'city_a', '', '' ,''),
-    create_text_field(6, 'State', 'state_a', '', '' ,''),
-    create_text_field(7, 'Type Of Property', 'type_of_property_a', '', '' ,''),
-    create_text_field(8, 'Income', 'income_a', '$', '' ,''),
-    create_text_field(9, 'Tax Filing Status', 'tax_filing_status_a', '', '' ,''),
+    create_text_field(4, 'City', 'city_a', '', '' ,''),
+    create_text_field(5, 'State', 'state_a', '', '' ,''),
+    create_text_field(6, 'Income', 'income_a', '$', '' ,''),
+  ]);
+  const [select_values_a, set_select_values_a] = React.useState([
+    create_select_field(0, 1, 2, 'Tax Filing Status', 'Tax Filing Status', ' ', tax_filing_status_arr),
+    create_select_field(3, 4, 5, 'Yearly Payments', 'Yearly Payments', ' ', yearly_payments_arr),
+    create_select_field(6, 7, 8, 'Type Of Property', 'Type Of Property', ' ', property_type_arr)
   ]);
   const [values_b, set_values_b] = React.useState([
     create_text_field(0, 'Purchase Price', 'purchase_price_b', '$', '' ,''),
     create_text_field(1, 'Down Payment', 'down_payment_b', '$', '' ,''),
     create_text_field(2, 'Interest Rate', 'interest_rate_b', '%', '' ,''),
     create_text_field(3, 'Loan Duration', 'loan_duration_b', '', 'Years' ,''),
-    create_text_field(4, 'Yearly Payments', 'yearly_payments_b', '', '' ,''),
-    create_text_field(5, 'City', 'city_b', '', '' ,''),
-    create_text_field(6, 'State', 'state_b', '', '' ,''),
-    create_text_field(7, 'Type Of Property', 'type_of_property_b', '', '' ,''),
-    create_text_field(8, 'Income', 'income_b', '$', '' ,''),
-    create_text_field(9, 'Tax Filing Status', 'tax_filing_status_b', '', '' ,''),
+    create_text_field(4, 'City', 'city_b', '', '' ,''),
+    create_text_field(5, 'State', 'state_b', '', '' ,''),
+    create_text_field(6, 'Income', 'income_b', '$', '' ,''),
+  ]);
+  const [select_values_b, set_select_values_b] = React.useState([
+    create_select_field(9, 10, 11, 'Tax Filing Status', 'Tax Filing Status', ' ', tax_filing_status_arr),
+    create_select_field(12, 13, 14, 'Yearly Payments', 'Yearly Payments', ' ', yearly_payments_arr),
+    create_select_field(15, 16, 17, 'Type Of Property', 'Type Of Property', ' ', property_type_arr)
   ]);
   // Handle change for TextFields A and B
   const handle_change_a = prop => event => {
@@ -125,7 +212,24 @@ export default function Compare() {
     }
     set_values_a([...values_a])
   };
-
+  // Handle change for Selection dropdown
+  const handle_select_change_a = select_prop => select_event => {
+    var key;
+    // Tax filing status
+    if (select_prop === 2) {
+      key = 0
+    }
+    // Yearly Payments
+    else if (select_prop === 5) {
+      key = 1
+    }
+    // Type of property
+    else {
+      key = 2
+    }
+    select_values_a[key]['value'] = select_event.target.value
+    set_select_values_a([...select_values_a])
+  };
   const handle_change_b = prop => event => {
     var check_var
     values_b[prop]['value'] = event.target.value
@@ -141,10 +245,28 @@ export default function Compare() {
     }
     set_values_b([...values_b])
   };
-
-  // For opening and closing each purchases TextFields panel
-  const handle_change = (panel) => (event, isExpanded) => {
-    set_expanded(isExpanded ? panel : false);
+  // Handle change for Selection dropdown
+  const handle_select_change_b = select_prop => select_event => {
+    var key;
+    // Tax filing status
+    if (select_prop === 2) {
+      key = 0
+    }
+    // Yearly Payments
+    else if (select_prop === 5) {
+      key = 1
+    }
+    // Type of property
+    else {
+      key = 2
+    }
+    select_values_b[key]['value'] = select_event.target.value
+    set_select_values_b([...select_values_b])
+  };
+  // For vertical tabs
+  const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
   // For TableRows
   const [data_a, set_data_a] = React.useState([
@@ -206,76 +328,87 @@ export default function Compare() {
   return (
     <div className={classes.root}>
         <Fade>
-          <div>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
-                <ExpansionPanel expanded={expanded === 'panel1'} onChange={handle_change('panel1')} style={{marginBottom: '1vmin'}}>
-                  <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
-                  >
-                    <Typography className={classes.heading}>Purchase A</Typography>
-                    <Typography className={classes.secondaryHeading}>
-                    </Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <div className={classes.root} id="1">
-                      {values_a.map(value => (
-                          <TextField
-                            key={value.key}
-                            label={value.label}
-                            id={value.id}
-                            className={clsx(classes.margin, classes.textField)}
-                            InputProps={{
-                              startAdornment: <InputAdornment position="start">{value.start_adornment}</InputAdornment>,
-                              endAdornment: <InputAdornment position="start">{value.end_adornment}</InputAdornment>,
-                            }}
-                            variant="outlined"
-                            value={value.value}
-                            onChange={handle_change_a(value.key)}
-                            error={value.error_value}
-                          />
+          <Fade top cascade>
+            <div style={{marginTop: '20px', marginRight: '60px'}}>
+              <Tabs
+                orientation="vertical"
+                value={value}
+                onChange={handleChange}
+                aria-label="Vertical tabs example"
+                className={classes.tabs}
+              >
+                <Tab label="Purchase A" {...a11yProps(0)} />
+                <Tab label="Purchase B" {...a11yProps(1)} />
+                </Tabs>
+              </div>
+            </Fade>
+            <Fade top cascade>
+              <TabPanel value={value} index={0}>
+                <div style={{display: "flex", flexWrap: "wrap"}}>
+                {values_a.map(value => (
+                  <TextField
+                    key={value.key}
+                    label={value.label}
+                    id={value.id}
+                    className={clsx(classes.margin, classes.textField)}
+                    InputProps={{
+                    startAdornment: <InputAdornment position="start">{value.start_adornment}</InputAdornment>,
+                    endAdornment: <InputAdornment position="start">{value.end_adornment}</InputAdornment>,
+                    }}
+                    variant="outlined"
+                    value={value.value}
+                    onChange={handle_change_a(value.key)}
+                    error={value.error_value}
+                  />
+                ))}
+                {/* Creates Selections */}
+                {select_values_a.map(select_value => (
+                  <FormControl key={select_value.fc_key} variant="outlined" className={classes.root}>
+                    <InputLabel key={select_value.il_key} id="demo-simple-select-outlined-label" className={clsx(classes.margin, classes.textField)}
+                    >{select_value.label_value}
+                    </InputLabel>
+                    <Select
+                      key={select_value.s_key}
+                      labelId="demo-simple-select-outlined-label"
+                      id={select_value.select_id}
+                      className={clsx(classes.margin, classes.textField)}
+                      value={select_value.select_value}
+                      onChange={handle_select_change_a(select_value.s_key)}
+                      label={select_value.label_value}
+                    >
+                      {select_value.labels_arr.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
                       ))}
-                    </div>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <ExpansionPanel expanded={expanded === 'panel2'} onChange={handle_change('panel2')} style={{marginBottom: '1vmin'}}>
-                  <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2bh-content"
-                    id="panel2bh-header"
-                  >
-                    <Typography className={classes.heading}>Purchase B</Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <div className={classes.root} id="2">
-                      {values_b.map(value => (
-                          <TextField
-                            key={value.key}
-                            label={value.label}
-                            id={value.id}
-                            className={clsx(classes.margin, classes.textField)}
-                            InputProps={{
-                              startAdornment: <InputAdornment position="start">{value.start_adornment}</InputAdornment>,
-                              endAdornment: <InputAdornment position="start">{value.end_adornment}</InputAdornment>,
-                            }}
-                            variant="outlined"
-                            value={value.value}
-                            onChange={handle_change_b(value.key)}
-                            error={value.error_value}
-                          />
-                      ))}
-                    </div>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-              </Grid>
-            </Grid>
-          </div>
-          <div style={{textAlign: 'center'}}>
-          <Button 
+                    </Select>
+                  </FormControl>
+                ))}
+                </div>
+              </TabPanel>
+            </Fade>
+            <Fade bottom cascade>
+              <TabPanel value={value} index={1}>
+                {values_b.map(value => (
+                  <TextField
+                    key={value.key}
+                    label={value.label}
+                    id={value.id}
+                    className={clsx(classes.margin, classes.textField)}
+                    InputProps={{
+                    startAdornment: <InputAdornment position="start">{value.start_adornment}</InputAdornment>,
+                    endAdornment: <InputAdornment position="start">{value.end_adornment}</InputAdornment>,
+                    }}
+                    variant="outlined"
+                    value={value.value}
+                    onChange={handle_change_b(value.key)}
+                    error={value.error_value}
+                  />
+                ))}
+              </TabPanel>
+            </Fade>
+          {/* <div style={{textAlign: 'center'}}> */}
+          {/* <Button 
                     size="large" variant="contained" color="primary" 
                     style={{marginBottom: '5.2vmin', marginTop: '1.5vmin'}}
                     onClick={() => handle_click([values_a, values_b])}
@@ -360,7 +493,7 @@ export default function Compare() {
                 onChangeRowsPerPage={handle_change_rows_per_page_b}
               />
               </TableContainer>
-            </div>
+            </div> */}
         </Fade>
     </div>
   );

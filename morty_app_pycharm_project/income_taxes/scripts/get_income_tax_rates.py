@@ -3,7 +3,7 @@
     Ryan McCann
 
 ~ Last updated:
-    01/19/2020
+    01/26/2020
 
 ~ Purpose:
     To collect federal and state income tax rates
@@ -16,6 +16,8 @@
 """
 import requests
 import bs4
+import json
+from morty_py import useful_functions
 
 
 def get_federal_rates():
@@ -47,16 +49,39 @@ def get_federal_rates():
         # Data was located in span tags
         spans = table.select('span')
         curr_dict['tax_filing_status'] = labels_list[labels_count]
+        # Initializing to remove annoying warnings
+        rate = min_income = max_income = None
         for curr_span in spans[3:]:
             curr_text = curr_span.text
-            print(curr_text)
-            # Edge case here, there is no constant amount due on top of the percentage
+            # Percentage
             if count == 0:
-                pass
+                rate = float(curr_text.replace('%', ''))
+            # The actual tax bracket
             elif count == 1:
-                pass
+                raw_bracket_list = curr_text.split(' ')
+                min_income = float(raw_bracket_list[0].replace('$', '').replace(',', ''))
+                if raw_bracket_list[2] == 'more':
+                    max_income = None
+                else:
+                    max_income = float(raw_bracket_list[2].replace('$', '').replace(',', ''))
+            # The constant value
             else:
-                pass
+                raw_constant_list = curr_text.split(' ')
+                # Edge case, 10% tax bracket has no constant
+                if raw_constant_list[0] == '10%':
+                    constant = 0.0
+                else:
+                    constant = float(raw_constant_list[0].replace('$', '').replace(',', ''))
+                temp_dict = {'tax_filing_statis': labels_list[labels_count], 'federal_rate': rate / 100,
+                             'min_income': min_income, 'max_income': max_income, 'constant': constant}
+                res_list.append(temp_dict)
+                count = 0
+                continue
+            count += 1
+        labels_count += 1
+    # with open('../../../data/income_tax_rates/federal_income_tax_rates.json', 'w')\
+    #         as file_name:
+    #     json.dump(res_list, file_name)
 
 
 def get_states_rates():
