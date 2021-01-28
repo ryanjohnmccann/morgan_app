@@ -13,6 +13,6 @@ v1.0
 
 
 ## License
-Copyright (c) 2020 Ryan McCann - All Rights Reserved
+Copyright (c) 2021 Ryan McCann - All Rights Reserved
 
 Unauthorized copying of this project/repository, via any medium is strictly prohibited without written permission from the admin of this repository.
