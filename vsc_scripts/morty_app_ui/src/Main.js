@@ -83,9 +83,9 @@ function Main() {
       <Home/>
     </TabPanel>
     {/* Compare tab */}
-    <TabPanel value={value} index={1}>
+    {/* <TabPanel value={value} index={1}>
       <Compare/>
-    </TabPanel>
+    </TabPanel> */}
     {/* Empty tab */}
     {/* <TabPanel value={value} index={2}>
     </TabPanel> */}

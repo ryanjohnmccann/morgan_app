@@ -89,7 +89,7 @@ def get_states_rates():
 
 
 def main():
-    get_federal_rates()
+    pass
 
 
 if __name__ == '__main__':
