@@ -8,6 +8,7 @@ import { TextField, Button, Table, TableBody, TableCell,
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {handle_mult_input} from './handle_mult_input.js'
+import { ResponsivePie } from '@nivo/pie'
 
 // For the TabPanels to work
 function TabPanel(props) {
@@ -50,27 +51,17 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   textField: {
-    marginTop: '0px',
-    width: "25vmin",
+    width: "26vmin",
   },
   margin: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1.1)
   },
   table: {
     width: '100%',
   },
   container: {
     maxHeight: 440,
-    width: '33%',
-    float: 'left',
-    marginBottom: '2vmin',
-    [theme.breakpoints.down("1100")]: {
-      float: 'none',
-      width: '100%',
-    },
-    tabs: {
-      borderRight: `1px solid ${theme.palette.divider}`,
-    },
+    maxWidth: 530,
   },
 }));
 
@@ -166,7 +157,6 @@ function stable_sort(array, comparator) {
 
 export default function Compare() {
   const classes = useStyles();
-  const [expanded, set_expanded] = React.useState(false);
   // For TextFields
   const [values_a, set_values_a] = React.useState([
     create_text_field(0, 'Purchase Price', 'purchase_price_a', '$', '' ,''),
@@ -201,7 +191,7 @@ export default function Compare() {
     var check_var
     values_a[prop]['value'] = event.target.value
     // Make sure our numerical values are not less than zero and they're not strings
-    if (prop === 0 || prop === 1 || prop === 2 || prop === 3 || prop === 4 || prop === 8) {
+    if (prop === 0 || prop === 1 || prop === 2 || prop === 3 || prop === 6) {
       check_var = values_a[prop]['value']
       if ((parseFloat(check_var) < 0 || isNaN(parseFloat(check_var))) && check_var !== '') {
         values_a[prop]['error_value'] = true
@@ -234,7 +224,7 @@ export default function Compare() {
     var check_var
     values_b[prop]['value'] = event.target.value
     // Make sure our numerical values are not less than zero and they're not strings
-    if (prop === 0 || prop === 1 || prop === 2 || prop === 3 || prop === 4 || prop === 8) {
+    if (prop === 0 || prop === 1 || prop === 2 || prop === 3 || prop === 6) {
       check_var = values_b[prop]['value']
       if ((parseFloat(check_var) < 0 || isNaN(parseFloat(check_var))) && check_var !== '') {
         values_b[prop]['error_value'] = true
@@ -262,6 +252,7 @@ export default function Compare() {
     }
     select_values_b[key]['value'] = select_event.target.value
     set_select_values_b([...select_values_b])
+    console.log(select_event.target.value)
   };
   // For vertical tabs
   const [value, setValue] = React.useState(0);
@@ -326,174 +317,204 @@ export default function Compare() {
   const [orderBy] = React.useState('id');
 
   return (
-    <div className={classes.root}>
+    <div>
         <Fade>
-          <Fade top cascade>
-            <div style={{marginTop: '20px', marginRight: '60px'}}>
-              <Tabs
-                orientation="vertical"
-                value={value}
-                onChange={handleChange}
-                aria-label="Vertical tabs example"
-                className={classes.tabs}
-              >
-                <Tab label="Purchase A" {...a11yProps(0)} />
-                <Tab label="Purchase B" {...a11yProps(1)} />
-                </Tabs>
-              </div>
-            </Fade>
+          <div className={classes.root}>
             <Fade top cascade>
-              <TabPanel value={value} index={0}>
-                <div style={{display: "flex", flexWrap: "wrap"}}>
-                {values_a.map(value => (
-                  <TextField
-                    key={value.key}
-                    label={value.label}
-                    id={value.id}
-                    className={clsx(classes.margin, classes.textField)}
-                    InputProps={{
-                    startAdornment: <InputAdornment position="start">{value.start_adornment}</InputAdornment>,
-                    endAdornment: <InputAdornment position="start">{value.end_adornment}</InputAdornment>,
-                    }}
-                    variant="outlined"
-                    value={value.value}
-                    onChange={handle_change_a(value.key)}
-                    error={value.error_value}
-                  />
-                ))}
-                {/* Creates Selections */}
-                {select_values_a.map(select_value => (
-                  <FormControl key={select_value.fc_key} variant="outlined" className={classes.root}>
-                    <InputLabel key={select_value.il_key} id="demo-simple-select-outlined-label" className={clsx(classes.margin, classes.textField)}
-                    >{select_value.label_value}
-                    </InputLabel>
-                    <Select
-                      key={select_value.s_key}
-                      labelId="demo-simple-select-outlined-label"
-                      id={select_value.select_id}
-                      className={clsx(classes.margin, classes.textField)}
-                      value={select_value.select_value}
-                      onChange={handle_select_change_a(select_value.s_key)}
-                      label={select_value.label_value}
-                    >
-                      {select_value.labels_arr.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                ))}
+              <div style={{marginTop: '20px', marginRight: '60px', justifyContent: 'center'}}>
+                <Tabs
+                  orientation="vertical"
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="Vertical tabs example"
+                  className={classes.tabs}
+                >
+                  <Tab label="Purchase A" {...a11yProps(0)} />
+                  <Tab label="Purchase B" {...a11yProps(1)} />
+                  </Tabs>
                 </div>
-              </TabPanel>
-            </Fade>
-            <Fade bottom cascade>
-              <TabPanel value={value} index={1}>
-                {values_b.map(value => (
-                  <TextField
-                    key={value.key}
-                    label={value.label}
-                    id={value.id}
-                    className={clsx(classes.margin, classes.textField)}
-                    InputProps={{
-                    startAdornment: <InputAdornment position="start">{value.start_adornment}</InputAdornment>,
-                    endAdornment: <InputAdornment position="start">{value.end_adornment}</InputAdornment>,
-                    }}
-                    variant="outlined"
-                    value={value.value}
-                    onChange={handle_change_b(value.key)}
-                    error={value.error_value}
-                  />
-                ))}
-              </TabPanel>
-            </Fade>
-          {/* <div style={{textAlign: 'center'}}> */}
-          {/* <Button 
-                    size="large" variant="contained" color="primary" 
-                    style={{marginBottom: '5.2vmin', marginTop: '1.5vmin'}}
-                    onClick={() => handle_click([values_a, values_b])}
-            >
-              Submit All
-            </Button>
-        </div>
-            <div>
-              <TableContainer component={Paper} className={classes.container}>
-                <Table stickyHeader className={classes.table} aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Purchase 'A' Expenses</TableCell>
-                      <TableCell align="right">Monthly&nbsp;($)</TableCell>
-                      <TableCell align="right">Yearly&nbsp;($)</TableCell>
-                      <TableCell align="right">Total&nbsp;($)</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {stable_sort(data_a, get_comparator(order, orderBy))
-                      .slice(page_a * rows_per_page_a, page_a * rows_per_page_a + rows_per_page_a)
-                      .map((row) => {
-                        return (
-                          <TableRow key={row.name} hover>
-                          <TableCell component="th" scope="row">
-                            {row.name}
-                          </TableCell>
-                          <TableCell align="right">{row.monthly}</TableCell>
-                          <TableCell align="right">{row.yearly}</TableCell>
-                          <TableCell align="right">{row.total}</TableCell>
-                        </TableRow>
-                        );
-                      })}
-                  </TableBody>
-                </Table>
-                <TablePagination
-                rowsPerPageOptions={[6, 9]}
-                component="div"
-                count={data_a.length}
-                rowsPerPage={rows_per_page_a}
-                page={page_a}
-                onChangePage={handle_change_page_a}
-                onChangeRowsPerPage={handle_change_rows_per_page_a}
-              />
-              </TableContainer>
+              </Fade>
+              <Fade top cascade>
+                <TabPanel value={value} index={0}>
+                  <div style={{display: "flex", flexWrap: "wrap"}}>
+                    {values_a.map(value => (
+                      <TextField
+                        key={value.key}
+                        label={value.label}
+                        id={value.id}
+                        className={clsx(classes.margin, classes.textField)}
+                        InputProps={{
+                        startAdornment: <InputAdornment position="start">{value.start_adornment}</InputAdornment>,
+                        endAdornment: <InputAdornment position="start">{value.end_adornment}</InputAdornment>,
+                        }}
+                        variant="outlined"
+                        value={value.value}
+                        onChange={handle_change_a(value.key)}
+                        error={value.error_value}
+                      />
+                    ))}
+                    {/* Creates Selections */}
+                    {select_values_a.map(select_value => (
+                      <FormControl key={select_value.fc_key} variant="outlined" className={classes.root}>
+                        <InputLabel key={select_value.il_key} id="demo-simple-select-outlined-label" className={clsx(classes.margin, classes.textField)}
+                        >{select_value.label_value}
+                        </InputLabel>
+                        <Select
+                          key={select_value.s_key}
+                          labelId="demo-simple-select-outlined-label"
+                          id={select_value.select_id}
+                          className={clsx(classes.margin, classes.textField)}
+                          value={select_value.select_value}
+                          onChange={handle_select_change_a(select_value.s_key)}
+                          label={select_value.label_value}
+                        >
+                          {select_value.labels_arr.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    ))}
+                  </div>
+                </TabPanel>
+              </Fade>
+              <Fade top cascade>
+                <TabPanel value={value} index={1}>
+                <div style={{display: "flex", flexWrap: "wrap"}}>
+                  {values_b.map(value => (
+                    <TextField
+                      key={value.key}
+                      label={value.label}
+                      id={value.id}
+                      className={clsx(classes.margin, classes.textField)}
+                      InputProps={{
+                      startAdornment: <InputAdornment position="start">{value.start_adornment}</InputAdornment>,
+                      endAdornment: <InputAdornment position="start">{value.end_adornment}</InputAdornment>,
+                      }}
+                      variant="outlined"
+                      value={value.value}
+                      onChange={handle_change_b(value.key)}
+                      error={value.error_value}
+                    />
+                  ))}
+                    {select_values_b.map(select_value => (
+                      <FormControl key={select_value.fc_key} variant="outlined" className={classes.root}>
+                        <InputLabel key={select_value.il_key} id="demo-simple-select-outlined-label" className={clsx(classes.margin, classes.textField)}
+                        >{select_value.label_value}
+                        </InputLabel>
+                        <Select
+                          key={select_value.s_key}
+                          labelId="demo-simple-select-outlined-label"
+                          id={select_value.select_id}
+                          className={clsx(classes.margin, classes.textField)}
+                          value={select_value.select_value}
+                          onChange={handle_select_change_b(select_value.s_key)}
+                          label={select_value.label_value}
+                        >
+                          {select_value.labels_arr.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    ))}
+                </div>
+                </TabPanel>
+              </Fade>
             </div>
-            <div>
-              <TableContainer component={Paper} className={classes.container}>
-                <Table stickyHeader className={classes.table} aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Purchase 'B' Expenses</TableCell>
-                      <TableCell align="right">Monthly&nbsp;($)</TableCell>
-                      <TableCell align="right">Yearly&nbsp;($)</TableCell>
-                      <TableCell align="right">Total&nbsp;($)</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {stable_sort(data_b, get_comparator(order, orderBy))
-                      .slice(page_b * rows_per_page_b, page_b * rows_per_page_b + rows_per_page_b)
-                      .map((row) => {
-                        return (
-                          <TableRow key={row.name} hover>
-                          <TableCell component="th" scope="row">
-                            {row.name}
-                          </TableCell>
-                          <TableCell align="right">{row.monthly}</TableCell>
-                          <TableCell align="right">{row.yearly}</TableCell>
-                          <TableCell align="right">{row.total}</TableCell>
-                        </TableRow>
-                        );
-                      })}
-                  </TableBody>
-                </Table>
-                <TablePagination
-                rowsPerPageOptions={[6, 9]}
-                component="div"
-                count={data_b.length}
-                rowsPerPage={rows_per_page_b}
-                page={page_b}
-                onChangePage={handle_change_page_b}
-                onChangeRowsPerPage={handle_change_rows_per_page_b}
-              />
-              </TableContainer>
-            </div> */}
+          <Fade bottom cascade>
+            <div style={{textAlign: 'center'}}>
+              <Button 
+                      size="large" variant="contained" color="primary" 
+                      style={{marginBottom: '5.2vmin', marginTop: '1.5vmin'}}
+                      onClick={() => handle_click([values_a, values_b])}
+              >
+                Submit All
+              </Button>
+            </div>
+          </Fade>
+          <Grid container spacing={3}>
+            <Grid item xs={6}>
+                <TableContainer component={Paper} className={classes.container}>
+                  <Table stickyHeader className={classes.table} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Purchase 'A' Expenses</TableCell>
+                        <TableCell align="right">Monthly&nbsp;($)</TableCell>
+                        <TableCell align="right">Yearly&nbsp;($)</TableCell>
+                        <TableCell align="right">Total&nbsp;($)</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {stable_sort(data_a, get_comparator(order, orderBy))
+                        .slice(page_a * rows_per_page_a, page_a * rows_per_page_a + rows_per_page_a)
+                        .map((row) => {
+                          return (
+                            <TableRow key={row.name} hover>
+                            <TableCell component="th" scope="row">
+                              {row.name}
+                            </TableCell>
+                            <TableCell align="right">{row.monthly}</TableCell>
+                            <TableCell align="right">{row.yearly}</TableCell>
+                            <TableCell align="right">{row.total}</TableCell>
+                          </TableRow>
+                          );
+                        })}
+                    </TableBody>
+                  </Table>
+                  <TablePagination
+                  rowsPerPageOptions={[6, 9]}
+                  component="div"
+                  count={data_a.length}
+                  rowsPerPage={rows_per_page_a}
+                  page={page_a}
+                  onChangePage={handle_change_page_a}
+                  onChangeRowsPerPage={handle_change_rows_per_page_a}
+                />
+                </TableContainer>
+            </Grid>
+            <Grid item xs={6}>
+                <TableContainer component={Paper} className={classes.container}>
+                  <Table stickyHeader className={classes.table} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Purchase 'B' Expenses</TableCell>
+                        <TableCell align="right">Monthly&nbsp;($)</TableCell>
+                        <TableCell align="right">Yearly&nbsp;($)</TableCell>
+                        <TableCell align="right">Total&nbsp;($)</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {stable_sort(data_b, get_comparator(order, orderBy))
+                        .slice(page_b * rows_per_page_b, page_b * rows_per_page_b + rows_per_page_b)
+                        .map((row) => {
+                          return (
+                            <TableRow key={row.name} hover>
+                            <TableCell component="th" scope="row">
+                              {row.name}
+                            </TableCell>
+                            <TableCell align="right">{row.monthly}</TableCell>
+                            <TableCell align="right">{row.yearly}</TableCell>
+                            <TableCell align="right">{row.total}</TableCell>
+                          </TableRow>
+                          );
+                        })}
+                    </TableBody>
+                  </Table>
+                  <TablePagination
+                  rowsPerPageOptions={[6, 9]}
+                  component="div"
+                  count={data_b.length}
+                  rowsPerPage={rows_per_page_b}
+                  page={page_b}
+                  onChangePage={handle_change_page_b}
+                  onChangeRowsPerPage={handle_change_rows_per_page_b}
+                />
+                </TableContainer>
+            </Grid>
+          </Grid>
         </Fade>
     </div>
   );
