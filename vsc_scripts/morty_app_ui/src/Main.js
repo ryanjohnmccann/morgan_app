@@ -73,7 +73,7 @@ function Main() {
           aria-label="nav tabs example"
         >
           <LinkTab label="Home" href="/home" {...a11yProps(0)} />
-          <LinkTab label="Compare" href="/compare" {...a11yProps(1)} />
+          {/* <LinkTab label="Compare" href="/compare" {...a11yProps(1)} /> */}
           {/* This is the contact tab, commented out for now because it doesn't work */}
           {/* <LinkTab label="Contact" href="/contact" {...a11yProps(2)} /> */}
         </Tabs>
