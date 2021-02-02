@@ -3,12 +3,12 @@ import Fade from 'react-reveal/Fade'
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button, Table, TableBody, TableCell, 
           TableContainer, TableHead, TableRow, Paper, TablePagination,
-          Grid, Hidden, Tabs, Tab, Typography, Box, InputAdornment,
+          Grid, Tabs, Tab, Typography, Box, InputAdornment,
           FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {handle_mult_input} from './handle_mult_input.js'
-import { ResponsivePie } from '@nivo/pie'
+// import { ResponsivePie } from '@nivo/pie'
 
 // For the TabPanels to work
 function TabPanel(props) {
